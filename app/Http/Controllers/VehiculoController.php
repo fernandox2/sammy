@@ -26,6 +26,7 @@ class VehiculoController extends Controller
             
             $vehiculos = Vehiculo::where('patente', 'like', '%'. $buscar . '%')
             ->join('tipos_vehiculos', 'vehiculos.tipo_vehiculo', '=', 'tipos_vehiculos.id')
+            ->select('vehiculos.*', 'tipos_vehiculos.nombre as tipo')
             ->orderBy('id', 'desc')->paginate(10);
             
         }
@@ -64,7 +65,17 @@ class VehiculoController extends Controller
     public function update(Request $request)
     {
         $vehiculo = Vehiculo::where('id', $request->id)->firstOrFail();
-        $vehiculo->nombre = $request->nombre;
+        $vehiculo->patente = $request->patente;
+        $vehiculo->marca = $request->marca;
+        $vehiculo->modelo = $request->modelo;
+        $vehiculo->marca = $request->marca;
+        $vehiculo->nombre_propietario = $request->nombre_propietario;
+        $vehiculo->fono_propietario = $request->fono_propietario;
+        $vehiculo->correo_propietario = $request->correo_propietario;
+        $vehiculo->motor = $request->motor;
+        $vehiculo->vin = $request->vin;
+        $vehiculo->chasis = $request->chasis;
+        $vehiculo->tipo_vehiculo = $request->tipo;
         $vehiculo->save();
     }
  

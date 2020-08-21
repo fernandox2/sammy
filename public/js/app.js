@@ -4978,7 +4978,7 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
                   this.motor = data["motor"];
                   this.vin = data["vin"];
                   this.chasis = data["chasis"];
-                  this.tipo = data["nombretipo"];
+                  this.tipo = data["tipo_vehiculo"];
                   break;
                 }
             }

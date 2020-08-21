@@ -268,7 +268,7 @@
                               <option v-for="option in tipos" v-bind:value="option.id">
                                   {{ option.nombre }}
                               </option>
-                              </select>
+                    </select>
                 </div>
               </div>
 
@@ -545,7 +545,6 @@ export default {
               this.vehiculoAccion = 1;
               break;
             }
-
             case "actualizar": {
               this.modal = 1;
               this.tituloModal = "Actualizar vehiculo";
@@ -560,7 +559,7 @@ export default {
               this.motor = data["motor"];
               this.vin = data["vin"];
               this.chasis = data["chasis"];
-              this.tipo = data["nombretipo"];
+              this.tipo = data["tipo_vehiculo"];
               break;
             }
           }
