@@ -15,9 +15,10 @@ class CreateServiciosTable extends Migration
     {
         Schema::create('servicios', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('servicio',191);
-            $table->integer('valor_neto');
-            $table->integer('valor_total');
+            $table->integer('valor_neto')->nullable();
+            $table->integer('valor_total')->nullable();
+            $table->string('comentario',191)->nullable();
+            $table->string('estado')->default('En curso');
             $table->bigInteger('patente_vehiculo')->unsigned();
             $table->timestamps();
             $table->foreign('patente_vehiculo')->references('id')->on('vehiculos')->onDelete('cascade');

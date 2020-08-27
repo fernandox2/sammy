@@ -16,14 +16,14 @@ class CreateVehiculosTable extends Migration
         Schema::create('vehiculos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('patente',10)->unique();
-            $table->string('nombre_propietario',100);
-            $table->string('fono_propietario',12);
-            $table->string('correo_propietario',100);
-            $table->string('motor',30);
+            $table->string('nombre_propietario',100)->nullable();
+            $table->string('fono_propietario',12)->nullable();
+            $table->string('correo_propietario',100)->nullable();
+            $table->string('motor',30)->nullable();
             $table->string('marca',30);
             $table->string('modelo',30);
-            $table->string('vin',30);
-            $table->string('chasis',30);
+            $table->string('vin',30)->nullable();
+            $table->string('chasis',30)->nullable();
             $table->bigInteger('tipo_vehiculo')->unsigned();
             $table->timestamps();
             $table->foreign('tipo_vehiculo')->references('id')->on('tipos_vehiculos')->onDelete('cascade');

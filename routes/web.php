@@ -102,8 +102,14 @@ Route::group(['middleware'=>['auth']],function(){
 		Route::put('/vehiculo/eliminar', 'VehiculoController@eliminar');
 		Route::put('/vehiculo/activar', 'VehiculoController@activar');
 
-		Route::get('/todoslostiposdevehiculos', 'TipoVehiculoController@getAllTiposVehiculos');
+		Route::get('/taller', 'TallerController@index');
+		Route::post('/taller/registrar', 'TallerController@store');
+		Route::put('/taller/actualizar', 'TallerController@update');
+		Route::put('/taller/eliminar', 'TallerController@eliminar');
+		Route::put('/taller/activar', 'TallerController@activar');
 
+		Route::get('/todoslostiposdevehiculos', 'TipoVehiculoController@getAllTiposVehiculos');
+		Route::get('/todoslosvehiculos', 'TallerController@getAllVehiculos');
 
     });
  

@@ -99,22 +99,14 @@
                         <i class="ni ni-bus-front-12 text-default"></i> {{ __('Tipo de Vehículos') }}
                     </a>
                 </li>
+
                     @if(Auth::user()->rol == 'Supervisor' || Auth::user()->rol == 'Administrador')
 
-                    <li class="nav-item dropdown">
-                            
-                            <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="ni ni-bag-17 text-default"></i> {{ __('Mantenedores') }}
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a @click.prevent="menu=5" class="ni ni-single-02 dropdown-item text-default" href="#">  USUARIOS</a>
-                                <a @click.prevent="menu=5" class="ni ni-delivery-fast dropdown-item text-default" href="#">  TIPOS DE VEHICULOS</a>
-                                <a @click.prevent="menu=5" class="ni ni-satisfied dropdown-item text-default" href="#">  CLIENTES</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">  OPCIONES</a>
-                            </div>
-                    </li>
+                <li @click.prevent="menu=8" class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="ni ni-settings text-default"></i> {{ __('Taller Mecánico') }}
+                    </a>
+                </li>
                     @endif
                     @if(Auth::user()->rol == 'Administrador')
                         <li @click.prevent="menu=3" class="nav-item">

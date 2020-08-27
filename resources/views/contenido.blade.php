@@ -34,6 +34,10 @@
     <vehiculos-component></vehiculos-component>
 </template>
 
+<template v-if="menu==8">
+    <taller-component></taller-component>
+</template>
+
 @endsection
 
 @push('js')
