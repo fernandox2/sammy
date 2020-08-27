@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Taller;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -85,6 +86,14 @@ class TallerController extends Controller
         $vehiculo->delete();
     }
 
+    public function getAllVehiculos(Request $request)
+    {
+        $vehiculos = DB::table('vehiculos')
+        ->OrderBy('patente','asc')
+        ->get();
 
+        return $vehiculos;
+    }
+ 
  
 }

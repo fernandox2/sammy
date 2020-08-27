@@ -183,13 +183,6 @@
                     </select>
                 </div>
               </div>
-              <div class="form-group row">
-                <h4 class="text-primary">Servicios o Insumos</h4>
-              </div>
-              
-              <div class="form-group row">
-                <button type="button" class="btn btn-success">Nuevo Servicio o Insumo</button>
-              </div>
 
               <div v-show="errorTaller" class="form-group row div-error">
                 <div class="text-center text-error">
@@ -232,7 +225,7 @@ Vue.use(VueCurrencyFilter);
 export default {
   props: ["ruta"],
   created(){
-    axios.get('/todoslostiposdetallers').then(response => { this.tipos = response.data; }).catch(errors => { console.log(errors); })
+    axios.get('/todoslosvehiculos').then(response => { this.vehiculos = response.data; }).catch(errors => { console.log(errors); })
 
   },
   data() {

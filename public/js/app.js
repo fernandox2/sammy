@@ -4271,13 +4271,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
@@ -4286,8 +4279,8 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
   created: function created() {
     var _this = this;
 
-    axios.get('/todoslostiposdetallers').then(function (response) {
-      _this.tipos = response.data;
+    axios.get('/todoslosvehiculos').then(function (response) {
+      _this.vehiculos = response.data;
     })["catch"](function (errors) {
       console.log(errors);
     });
@@ -4918,14 +4911,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_currency_filter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-currency-filter */ "./node_modules/vue-currency-filter/lib-out/VueCurrencyFilter.js");
 /* harmony import */ var vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1__);
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -31057,10 +31042,6 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _vm._m(5),
-                    _vm._v(" "),
                     _c(
                       "div",
                       {
@@ -31225,26 +31206,6 @@ var staticRenderFns = [
       },
       [_c("i", { staticClass: "fas fa-ellipsis-v" })]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c("h4", { staticClass: "text-primary" }, [_vm._v("Servicios o Insumos")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-success", attrs: { type: "button" } },
-        [_vm._v("Nuevo Servicio o Insumo")]
-      )
-    ])
   }
 ]
 render._withStripped = true
@@ -31830,32 +31791,6 @@ var render = function() {
                             domProps: {
                               textContent: _vm._s(vehiculo.fono_propietario)
                             }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "text-left text-uppercase" }, [
-                          _c("small", {
-                            domProps: {
-                              textContent: _vm._s(vehiculo.correo_propietario)
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "text-left text-uppercase" }, [
-                          _c("small", {
-                            domProps: { textContent: _vm._s(vehiculo.motor) }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "text-left text-uppercase" }, [
-                          _c("small", {
-                            domProps: { textContent: _vm._s(vehiculo.vin) }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "text-left text-uppercase" }, [
-                          _c("small", {
-                            domProps: { textContent: _vm._s(vehiculo.chasis) }
                           })
                         ]),
                         _vm._v(" "),
@@ -32592,14 +32527,6 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Propietario")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Cel. Propietario")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Correo Propietario")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Motor")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Vin")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Chasis")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Tipo")]),
         _vm._v(" "),

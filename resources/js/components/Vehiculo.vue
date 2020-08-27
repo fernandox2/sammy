@@ -39,10 +39,6 @@
                     <th scope="col">Modelo</th>
                     <th scope="col">Propietario</th>
                     <th scope="col">Cel. Propietario</th>
-                    <th scope="col">Correo Propietario</th>
-                    <th scope="col">Motor</th>
-                    <th scope="col">Vin</th>
-                    <th scope="col">Chasis</th>
                     <th scope="col">Tipo</th>
                     <th scope="col"></th>
                   </tr>
@@ -55,10 +51,6 @@
                     <td class="text-left text-uppercase"><small v-text="vehiculo.modelo"></small></td>
                     <td class="text-left text-uppercase"><small v-text="vehiculo.nombre_propietario"></small></td>
                     <td class="text-left text-uppercase"><small v-text="vehiculo.fono_propietario"></small></td>
-                    <td class="text-left text-uppercase"><small v-text="vehiculo.correo_propietario"></small></td>
-                    <td class="text-left text-uppercase"><small v-text="vehiculo.motor"></small></td>
-                    <td class="text-left text-uppercase"><small v-text="vehiculo.vin"></small></td>
-                    <td class="text-left text-uppercase"><small v-text="vehiculo.chasis"></small></td>
                     <td class="text-left text-uppercase"><small v-text="vehiculo.tipo"></small></td>
                     <td class="text-right">
                       <div class="dropdown">
