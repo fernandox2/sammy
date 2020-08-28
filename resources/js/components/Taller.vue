@@ -46,7 +46,7 @@
                     <th scope="col">Patente</th>
                     <th scope="col">Comentario</th>
                     <th scope="col">Propietario</th>
-                    <th scope="col">Estado</th>
+                    <th scope="col">Fecha</th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
@@ -57,7 +57,7 @@
                     <td class="text-left text-uppercase"><small v-text="taller.patente"></small></td>
                     <td class="text-left text-uppercase"><small v-text="taller.comentario"></small></td>
                     <td class="text-left text-uppercase"><small v-text="taller.propietario"></small></td>
-                    <td class="text-left text-uppercase"><small v-text="taller.estado"></small></td>
+                    <td class="text-left text-uppercase"><small v-text="taller.created_at"></small></td>
                     <td class="text-right">
                       <div class="dropdown">
                         <a
@@ -71,6 +71,11 @@
                           <i class="fas fa-ellipsis-v"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                          <a
+                            style="cursor:pointer;"
+                            class="dropdown-item"
+                            @click.prevent="generarPDF(taller)"
+                          >Generar PDF</a>
                           <a
                             style="cursor:pointer;"
                             class="dropdown-item"
@@ -308,8 +313,10 @@
 </template>
 
 <script>
+
 import Swal from "sweetalert2";
 import VueCurrencyFilter from "vue-currency-filter";
+import jsPDF from 'jspdf';
 
 Vue.use(VueCurrencyFilter);
 export default {
@@ -526,6 +533,18 @@ export default {
         }
       });
     },
+
+    generarPDF(servicio){
+      // Nombre del Documento
+      let pdfName = 'Orden de Servicio #' + servicio.id; 
+      var doc = new jsPDF('p', 'mm', 'letter');
+      
+      doc.text("Servicio Prestado Vehiculo : " + servicio.patente + " " + servicio.marca + " " + servicio.modelo, 40, 250, 'center');
+      //doc.addImage("img/5d9b25944d92e.jpg", "JPEG", 15, 40, 180, 180);
+      doc.save(pdfName + '.pdf');
+    },
+
+
     validarTaller() {
       this.errorTaller = 0;
       this.errorMostrarMsjTaller = [];

@@ -11,7 +11,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Ventas del Día</h5>
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Vehiculos Ingresados</h5>
                                     <span class="h2 font-weight-bold mb-0"><b>{{ ventas_al_dia }}</b></span>
                                 </div>
                                 <div class="col-auto">
@@ -32,7 +32,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Producto del Mes</h5>
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Cotizaciones del Mes</h5>
                                     <span class="h2 font-weight-bold mb-0"><b>{{ producto_del_mes }}</b></span>
                                 </div>
                                 <div class="col-auto">
@@ -41,9 +41,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <p class="mt-3 mb-0 text-muted text-sm">Presente en
-                                <span class="text-success mr-2"> <b> {{ cantidad_vendida }}</b> </span>
-                                <span class="text-nowrap"> ventas</span>
+                            <p class="mt-3 mb-0 text-muted text-sm">Del 01/08/2020 al 31/08/2020
+
                             </p>
                         </div>
                     </div>
@@ -53,7 +52,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Recaudación del Día</h5>
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Recaudación del Mes</h5>
                                     <span class="h2 font-weight-bold mb-0"> <b>${{ recaudacion_al_minuto | currency }}</b></span>
                                 </div>
                                 <div class="col-auto">
@@ -74,7 +73,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Vendedor del Mes</h5>
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Servicio Mas Recurrente</h5>
                                     <span class="h2 font-weight-bold mb-0"><b> {{ vendedor_del_mes }}</b></span>
                                 </div>
                                 <div class="col-auto">
@@ -85,7 +84,7 @@
                             </div>
                             <p class="mt-3 mb-0 text-muted text-sm">
                                 <span class="text-success mr-2"> {{ ventas_del_vendedor }}</span>
-                                <span class="text-nowrap"> ventas este mes</span>
+                                <span class="text-nowrap"> en total </span>
                             </p>
                         </div>
                     </div>

@@ -6,7 +6,7 @@
         </button>
         <!-- Brand -->
         <a class="navbar-brand pt-0" href="{{ route('home') }}">
-            <img src="{{ asset('argon') }}/img/brand/blue.png" class="navbar-brand-img" alt="...">
+            <img src="{{ asset('argon') }}/img/brand/sammy.jpg" class="navbar-brand-img" alt="...">
         </a>
         <!-- User -->
         <ul class="nav align-items-center d-md-none">
@@ -96,7 +96,7 @@
                 </li>
                 <li @click.prevent="menu=6" class="nav-item">
                     <a class="nav-link" href="#">
-                        <i class="ni ni-bus-front-12 text-default"></i> {{ __('Tipo de Vehículos') }}
+                        <i class="ni ni-ui-04 text-default"></i> {{ __('Tipo de Vehículos') }}
                     </a>
                 </li>
 
@@ -108,13 +108,14 @@
                     </a>
                 </li>
                     @endif
-                    @if(Auth::user()->rol == 'Administrador')
+                   
+                 <!--   @if(Auth::user()->rol == 'Administrador')
                         <li @click.prevent="menu=3" class="nav-item">
                             <a class="nav-link" href="#">
                                 <i class="ni ni-building text-default"></i> {{ __('Empresas') }}
                             </a>
                         </li>
-                    @endif
+                    @endif -->
 
                     <li @click.prevent="menu=4" class="nav-item">
                         <a class="nav-link" href="#">

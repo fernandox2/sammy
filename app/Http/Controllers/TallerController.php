@@ -23,14 +23,14 @@ class TallerController extends Controller
         if ($buscar==''){
 
             $servicios = Taller::join('vehiculos', 'vehiculos.id', '=', 'servicios.patente_vehiculo')
-            ->select('servicios.*', 'vehiculos.patente as patente', 'vehiculos.nombre_propietario as propietario')
+            ->select('servicios.*', 'vehiculos.patente as patente', 'vehiculos.nombre_propietario as propietario', 'vehiculos.marca as marca', 'vehiculos.modelo as modelo' )
             ->orderBy('vehiculos.id', 'desc')->paginate(10);
         }
         else{
             
             $servicios = Taller::where('vehiculos.patente', 'like', '%'. $buscar . '%')
             ->join('vehiculos', 'vehiculos.id', '=', 'servicios.patente_vehiculo')
-            ->select('servicios.*', 'vehiculos.patente as patente', 'vehiculos.nombre_propietario as propietario')
+            ->select('servicios.*', 'vehiculos.patente as patente', 'vehiculos.nombre_propietario as propietario', 'vehiculos.marca as marca', 'vehiculos.modelo as modelo' )
             ->orderBy('vehiculos.id', 'desc')->paginate(10);
             
         }
