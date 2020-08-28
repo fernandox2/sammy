@@ -107,9 +107,11 @@ Route::group(['middleware'=>['auth']],function(){
 		Route::put('/taller/actualizar', 'TallerController@update');
 		Route::put('/taller/eliminar', 'TallerController@eliminar');
 		Route::put('/taller/activar', 'TallerController@activar');
+		Route::get('/detallesporservicio/{codigo}', 'TallerController@DetallesPorServicio');
 
 		Route::get('/todoslostiposdevehiculos', 'TipoVehiculoController@getAllTiposVehiculos');
 		Route::get('/todoslosvehiculos', 'TallerController@getAllVehiculos');
+		
 
     });
  

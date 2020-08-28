@@ -4271,6 +4271,96 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
@@ -4290,10 +4380,15 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
       id: 0,
       estado: "En curso",
       vehiculo: 0,
+      detalle: "",
+      valor_neto: 0,
+      valor_total: 0,
+      detalle_neto: "",
       patente_vehiculo: "",
       comentario: "",
       vehiculos: [],
       arrayTaller: [],
+      detalles: [],
       modal: 0,
       tituloModal: "",
       tallerAccion: 0,
@@ -4350,11 +4445,41 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
       var url = "/taller?page=" + page + "&buscar=" + buscar + "&criterio=" + criterio;
       axios.get(url).then(function (response) {
         var respuesta = response.data;
-        me.arrayTaller = respuesta.tallers.data;
+        me.arrayTaller = respuesta.servicios.data;
         me.pagination = respuesta.pagination;
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    agregarDetalle: function agregarDetalle() {
+      var me = this;
+
+      if (me.detalle != "") {
+        // Agregar al array
+        me.detalles.push({
+          servicio: me.detalle,
+          detalle_neto: me.detalle_neto
+        }); // Actualizar el Valor Neto del Servicio
+
+        me.valor_neto = parseInt(me.valor_neto) + parseInt(me.detalle_neto); // Actualizar el Valor Total del Servicio
+
+        me.valor_total = parseInt(me.valor_neto) * 1.19; // Limpiar los inputs
+
+        me.detalle_neto = "";
+        me.detalle = "";
+      }
+    },
+    eliminarDetalle: function eliminarDetalle(item) {
+      var me = this;
+      var i = me.detalles.indexOf(item);
+
+      if (i !== -1) {
+        me.detalles.splice(i, 1); // Actualizar el Valor Neto del Servicio
+
+        me.valor_neto = parseInt(me.valor_neto) - parseInt(item.detalle_neto); // Actualizar el Valor Total del Servicio
+
+        me.valor_total = parseInt(me.valor_neto) * 1.19;
+      }
     },
     cambiarPagina: function cambiarPagina(page, buscar, criterio) {
       var me = this; //Actualiza la página actual
@@ -4370,19 +4495,15 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
 
       var me = this;
       axios.post("/taller/registrar", {
-        patente: this.patente,
-        marca: this.marca,
-        modelo: this.modelo,
-        nombre_propietario: this.nombre_propietario,
-        fono_propietario: this.fono_propietario,
-        correo_propietario: this.correo_propietario,
-        motor: this.motor,
-        vin: this.vin,
-        chasis: this.chasis,
-        tipo: this.tipo
+        valor_neto: me.valor_neto,
+        valor_total: me.valor_total,
+        comentario: me.comentario,
+        estado: me.estado,
+        vehiculo: me.vehiculo,
+        detalles: me.detalles
       }).then(function (response) {
         me.cerrarModal();
-        me.listarTaller(1, "", "patente");
+        me.listarTaller(1, "", "id");
         sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
           icon: "success",
           title: "Excelente ...",
@@ -4399,20 +4520,16 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
 
       var me = this;
       axios.put("/taller/actualizar", {
-        patente: this.patente,
-        marca: this.marca,
-        modelo: this.modelo,
-        nombre_propietario: this.nombre_propietario,
-        fono_propietario: this.fono_propietario,
-        correo_propietario: this.correo_propietario,
-        motor: this.motor,
-        vin: this.vin,
-        chasis: this.chasis,
-        tipo: this.tipo,
-        id: this.id
+        valor_neto: me.valor_neto,
+        valor_total: me.valor_total,
+        comentario: me.comentario,
+        estado: me.estado,
+        vehiculo: me.vehiculo,
+        detalles: me.detalles,
+        id: me.id
       }).then(function (response) {
         me.cerrarModal();
-        me.listarTaller(1, "", "patente");
+        me.listarTaller(1, "", "id");
         sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
           icon: "success",
           title: "Excelente ...",
@@ -4437,8 +4554,8 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
           axios.put("/taller/eliminar", {
             id: id
           }).then(function (response) {
-            me.listarTaller(1, "", "patente");
-            sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire("Borrado!", "El registro fue liminado del sistema.", "success");
+            me.listarTaller(1, "", "id");
+            sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire("Borrado!", "El registro fue eliminado del sistema.", "success");
           })["catch"](function (error) {
             console.log(error);
           });
@@ -4448,16 +4565,24 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
     validarTaller: function validarTaller() {
       this.errorTaller = 0;
       this.errorMostrarMsjTaller = [];
-      if (!this.patente) this.errorMostrarMsjTaller.push("El taller no puede estar vacío.");
+      if (this.vehiculo == 0) this.errorMostrarMsjTaller.push("Debe seleccionar un vehiculo al menos.");
+      if (this.detalles.length == 0) this.errorMostrarMsjTaller.push("Debe agregar al menos un servicio o insumo.");
       if (this.errorMostrarMsjTaller.length) this.errorTaller = 1;
       return this.errorTaller;
     },
     cerrarModal: function cerrarModal() {
       this.modal = 0;
       this.tituloModal = "";
-      this.patente = "";
+      this.comentario = "";
+      this.valor_neto = 0;
+      this.valor_total = 0;
+      this.vehiculo = 0;
+      this.detalles = [];
+      this.estado = "En curso";
     },
     abrirModal: function abrirModal(modelo, accion) {
+      var _this2 = this;
+
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
       switch (modelo) {
@@ -4485,19 +4610,21 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
               case "actualizar":
                 {
                   this.modal = 1;
-                  this.tituloModal = "Actualizar taller";
+                  this.tituloModal = "Actualizar Servicio N° " + data["id"];
                   this.tallerAccion = 2;
                   this.id = data["id"];
-                  this.patente = data["patente"];
-                  this.marca = data["marca"];
-                  this.modelo = data["modelo"];
-                  this.nombre_propietario = data["nombre_propietario"];
-                  this.correo_propietario = data["correo_propietario"];
-                  this.fono_propietario = data["fono_propietario"];
-                  this.motor = data["motor"];
-                  this.vin = data["vin"];
-                  this.chasis = data["chasis"];
-                  this.tipo = data["tipo_taller"];
+                  this.comentario = data["comentario"];
+                  this.valor_neto = data["valor_neto"];
+                  this.valor_total = data["valor_total"];
+                  this.vehiculo = data["patente_vehiculo"];
+                  this.estado = data["estado"];
+                  this.detalles = data["detalles"]; // Buscar Detalles del Servicio
+
+                  axios.get('/detallesporservicio/' + this.id).then(function (response) {
+                    _this2.detalles = response.data;
+                  })["catch"](function (errors) {
+                    console.log(errors);
+                  });
                   break;
                 }
             }
@@ -30683,6 +30810,7 @@ var render = function() {
                                   "a",
                                   {
                                     staticClass: "dropdown-item",
+                                    staticStyle: { cursor: "pointer" },
                                     on: {
                                       click: function($event) {
                                         $event.preventDefault()
@@ -30701,6 +30829,7 @@ var render = function() {
                                   "a",
                                   {
                                     staticClass: "dropdown-item",
+                                    staticStyle: { cursor: "pointer" },
                                     on: {
                                       click: function($event) {
                                         $event.preventDefault()
@@ -30922,7 +31051,7 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Vehículo")]
+                        [_vm._v("Vehículo : ")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
@@ -31037,6 +31166,203 @@ var render = function() {
                             _c("option", { attrs: { value: "Terminada" } }, [
                               _vm._v("Terminada")
                             ])
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Valor Neto:")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("h5", { staticClass: "text-left text-uppercase" }, [
+                          _vm._v(
+                            "$" + _vm._s(_vm._f("currency")(_vm.valor_neto))
+                          )
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Valor Total:")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("h5", { staticClass: "text-left text-uppercase" }, [
+                          _vm._v(
+                            "$" + _vm._s(_vm._f("currency")(_vm.valor_total))
+                          )
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("h4", { staticClass: "text-primary" }, [
+                      _vm._v("Servicios o Insumos")
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.detalle,
+                              expression: "detalle"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Ej : Pastillas de freno"
+                          },
+                          domProps: { value: _vm.detalle },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.detalle = $event.target.value
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-3" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.detalle_neto,
+                              expression: "detalle_neto"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Ej : $ 40.000",
+                            maxlength: "9",
+                            onKeypress:
+                              "if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
+                          },
+                          domProps: { value: _vm.detalle_neto },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.detalle_neto = $event.target.value
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-3" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.agregarDetalle()
+                              }
+                            }
+                          },
+                          [_vm._v("Agregar")]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c("div", { staticClass: "table-responsive col-md-12" }, [
+                        _c(
+                          "table",
+                          {
+                            staticClass: "table align-items-center table-flush"
+                          },
+                          [
+                            _vm._m(4),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.detalles, function(det) {
+                                return _c("tr", { key: det.posicion_array }, [
+                                  _c(
+                                    "td",
+                                    { staticClass: "text-left text-uppercase" },
+                                    [
+                                      _c("small", {
+                                        domProps: {
+                                          textContent: _vm._s(det.servicio)
+                                        }
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    { staticClass: "text-left text-uppercase" },
+                                    [
+                                      _vm._v(
+                                        "$" +
+                                          _vm._s(
+                                            _vm._f("currency")(det.detalle_neto)
+                                          )
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-right" }, [
+                                    _c("div", { staticClass: "dropdown" }, [
+                                      _vm._m(5, true),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "dropdown-menu dropdown-menu-right dropdown-menu-arrow"
+                                        },
+                                        [
+                                          _c(
+                                            "a",
+                                            {
+                                              staticClass: "dropdown-item",
+                                              on: {
+                                                click: function($event) {
+                                                  $event.preventDefault()
+                                                  return _vm.eliminarDetalle(
+                                                    det
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [_vm._v("Eliminar")]
+                                          )
+                                        ]
+                                      )
+                                    ])
+                                  ])
+                                ])
+                              }),
+                              0
+                            )
                           ]
                         )
                       ])
@@ -31183,6 +31509,39 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Propietario")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Estado")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "btn btn-sm btn-icon-only",
+        attrs: {
+          href: "#",
+          role: "button",
+          "data-toggle": "dropdown",
+          "aria-haspopup": "true",
+          "aria-expanded": "false"
+        }
+      },
+      [_c("i", { staticClass: "fas fa-ellipsis-v" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Servicio")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Valor Neto")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } })
       ])
@@ -45904,7 +46263,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\sammy\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\carrito\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

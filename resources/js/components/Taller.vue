@@ -61,7 +61,7 @@
                     <td class="text-right">
                       <div class="dropdown">
                         <a
-                          class="btn btn-sm btn-icon-only text-light"
+                          class="btn btn-sm btn-icon-only"
                           href="#"
                           role="button"
                           data-toggle="dropdown"
@@ -72,10 +72,12 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                           <a
+                            style="cursor:pointer;"
                             class="dropdown-item"
                             @click.prevent="abrirModal('taller','actualizar',taller)"
                           >Modificar</a>
                           <a
+                          style="cursor:pointer;"
                             class="dropdown-item"
                             @click.prevent="eliminarTaller(taller.id)"
                           >Eliminar</a>
@@ -163,7 +165,7 @@
               </div>
 
             <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Vehículo</label>
+                <label class="col-md-3 form-control-label" for="text-input">Vehículo : </label>
                 <div class="col-md-9">
                   <select v-model="vehiculo" class="form-control" v-on:change.prevent="">
                               <option value="0">Seleccione una patente</option>
@@ -182,6 +184,94 @@
                               <option value="Terminada">Terminada</option>
                     </select>
                 </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Valor Neto:</label>
+                <div class="col-md-9">
+                  <h5 class="text-left text-uppercase">${{ valor_neto | currency}}</h5>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Valor Total:</label>
+                <div class="col-md-9">
+                  <h5 class="text-left text-uppercase">${{ valor_total | currency}}</h5>
+                </div>
+              </div>
+
+              <h4 class="text-primary">Servicios o Insumos</h4>
+              
+              <br>
+              
+              <div class="form-group row">
+                
+               
+                <div class="col-md-6">
+                    <input
+                    type="text"
+                    v-model="detalle"
+                    class="form-control"
+                    placeholder="Ej : Pastillas de freno"
+                  />
+                </div>
+                
+                <div class="col-md-3">
+                    <input
+                    type="text"
+                    v-model="detalle_neto"
+                    class="form-control"
+                    placeholder="Ej : $ 40.000"
+                    maxlength="9" 
+                    onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
+                  />
+                </div>
+
+                <div class="col-md-3">
+                   <button type="button" class="btn btn-success" @click="agregarDetalle()">Agregar</button>
+                </div>
+
+              </div>
+
+              <div class="form-group row">
+                    <div class="table-responsive col-md-12">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Servicio</th>
+                    <th scope="col">Valor Neto</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="det in detalles" :key="det.posicion_array">
+                    
+                    <td class="text-left text-uppercase"><small v-text="det.servicio"></small></td>
+                    <td class="text-left text-uppercase">${{ det.detalle_neto | currency}}</td>
+                    <td class="text-right">
+                      <div class="dropdown">
+                        <a
+                          class="btn btn-sm btn-icon-only text-light"
+                          href="#"
+                          role="button"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          <i class="fas fa-ellipsis-v"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                          <a
+                            class="dropdown-item"
+                            @click.prevent="eliminarDetalle(det)"
+                          >Eliminar</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
               </div>
 
               <div v-show="errorTaller" class="form-group row div-error">
@@ -233,10 +323,15 @@ export default {
       id: 0,
       estado:"En curso",
       vehiculo:0,
+      detalle:"",
+      valor_neto:0,
+      valor_total:0,
+      detalle_neto:"",
       patente_vehiculo:"",
       comentario:"",
       vehiculos:[],
-      arrayTaller: [],
+      arrayTaller:[],
+      detalles:[],
       modal: 0,
       tituloModal: "",
       tallerAccion: 0,
@@ -298,14 +393,43 @@ export default {
         .get(url)
         .then(function(response) {
           var respuesta = response.data;
-          me.arrayTaller = respuesta.tallers.data;
+          me.arrayTaller = respuesta.servicios.data;
           me.pagination = respuesta.pagination;
         })
         .catch(function(error) {
           console.log(error);
         });
     },
-
+  agregarDetalle(){
+    let me = this;
+    if (me.detalle != "")
+    {
+      // Agregar al array
+      me.detalles.push ({
+        servicio: me.detalle,
+        detalle_neto: me.detalle_neto
+      });
+      // Actualizar el Valor Neto del Servicio
+      me.valor_neto = parseInt(me.valor_neto) + parseInt(me.detalle_neto);
+      // Actualizar el Valor Total del Servicio
+      me.valor_total = parseInt(me.valor_neto) * 1.19;
+      // Limpiar los inputs
+      me.detalle_neto = "";
+      me.detalle = "";
+    }
+  },
+  eliminarDetalle(item){
+    let me = this;
+    var i = me.detalles.indexOf(item);
+    if ( i !== -1 ) {
+        me.detalles.splice(i,1);
+        // Actualizar el Valor Neto del Servicio
+        me.valor_neto = parseInt(me.valor_neto) - parseInt(item.detalle_neto);
+        // Actualizar el Valor Total del Servicio
+        me.valor_total = parseInt(me.valor_neto) * 1.19;
+    }
+    
+  },
     cambiarPagina(page, buscar, criterio) {
       let me = this;
       //Actualiza la página actual
@@ -322,20 +446,16 @@ export default {
 
       axios
         .post("/taller/registrar", {
-          patente: this.patente,
-          marca: this.marca,
-          modelo: this.modelo,
-          nombre_propietario: this.nombre_propietario,
-          fono_propietario: this.fono_propietario,
-          correo_propietario: this.correo_propietario,
-          motor: this.motor,
-          vin: this.vin,
-          chasis: this.chasis,
-          tipo: this.tipo
+          valor_neto: me.valor_neto,
+          valor_total: me.valor_total,
+          comentario: me.comentario,
+          estado: me.estado,
+          vehiculo: me.vehiculo,
+          detalles: me.detalles
         })
         .then(function(response) {
           me.cerrarModal();
-          me.listarTaller(1, "", "patente");
+          me.listarTaller(1, "", "id");
           Swal.fire({
             icon: "success",
             title: "Excelente ...",
@@ -355,21 +475,17 @@ export default {
 
       axios
         .put("/taller/actualizar", {
-          patente: this.patente,
-          marca: this.marca,
-          modelo: this.modelo,
-          nombre_propietario: this.nombre_propietario,
-          fono_propietario: this.fono_propietario,
-          correo_propietario: this.correo_propietario,
-          motor: this.motor,
-          vin: this.vin,
-          chasis: this.chasis,
-          tipo: this.tipo,
-          id: this.id
+          valor_neto: me.valor_neto,
+          valor_total: me.valor_total,
+          comentario: me.comentario,
+          estado: me.estado,
+          vehiculo: me.vehiculo,
+          detalles: me.detalles,
+          id: me.id
         })
         .then(function(response) {
           me.cerrarModal();
-          me.listarTaller(1, "", "patente");
+          me.listarTaller(1, "", "id");
           Swal.fire({
             icon: "success",
             title: "Excelente ...",
@@ -393,15 +509,14 @@ export default {
         confirmButtonText: "Sí, Bórralo"
       }).then(result => {
         if (result.value) {
-          axios
-            .put("/taller/eliminar", {
+          axios.put("/taller/eliminar", {
               id: id
             })
             .then(function(response) {
-              me.listarTaller(1, "", "patente");
+              me.listarTaller(1, "", "id");
               Swal.fire(
                 "Borrado!",
-                "El registro fue liminado del sistema.",
+                "El registro fue eliminado del sistema.",
                 "success"
               );
             })
@@ -415,9 +530,14 @@ export default {
       this.errorTaller = 0;
       this.errorMostrarMsjTaller = [];
 
-      if (!this.patente)
+      if (this.vehiculo==0 )
         this.errorMostrarMsjTaller.push(
-          "El taller no puede estar vacío."
+          "Debe seleccionar un vehiculo al menos."
+        );
+
+      if (this.detalles.length == 0)
+        this.errorMostrarMsjTaller.push(
+          "Debe agregar al menos un servicio o insumo."
         );
 
       if (this.errorMostrarMsjTaller.length) this.errorTaller = 1;
@@ -427,7 +547,12 @@ export default {
     cerrarModal() {
       this.modal = 0;
       this.tituloModal = "";
-      this.patente = "";
+      this.comentario = "";
+      this.valor_neto = 0;
+      this.valor_total = 0;
+      this.vehiculo = 0;
+      this.detalles = [];
+      this.estado = "En curso";
     },
 
     abrirModal(modelo, accion, data = []) {
@@ -452,19 +577,18 @@ export default {
             }
             case "actualizar": {
               this.modal = 1;
-              this.tituloModal = "Actualizar taller";
+              this.tituloModal = "Actualizar Servicio N° " + data["id"];
               this.tallerAccion = 2;
               this.id = data["id"];
-              this.patente = data["patente"];
-              this.marca = data["marca"];
-              this.modelo = data["modelo"];
-              this.nombre_propietario = data["nombre_propietario"];
-              this.correo_propietario = data["correo_propietario"];
-              this.fono_propietario = data["fono_propietario"];
-              this.motor = data["motor"];
-              this.vin = data["vin"];
-              this.chasis = data["chasis"];
-              this.tipo = data["tipo_taller"];
+              this.comentario = data["comentario"];
+              this.valor_neto = data["valor_neto"];
+              this.valor_total = data["valor_total"];
+              this.vehiculo = data["patente_vehiculo"];
+              this.estado = data["estado"];
+              this.detalles = data["detalles"];
+              // Buscar Detalles del Servicio
+              axios.get('/detallesporservicio/'+ this.id).then(response => { this.detalles = response.data; }).catch(errors => { console.log(errors); })
+              
               break;
             }
           }

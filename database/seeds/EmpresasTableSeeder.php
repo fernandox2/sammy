@@ -21,5 +21,24 @@ class EmpresasTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
+
+        DB::table('tipos_vehiculos')->insert([
+            'id' => 1,
+            'nombre' => 'Autos, Camionetas y 4x4',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('vehiculos')->insert([
+            'id' => 1,
+            'patente' => 'BRBF19',
+            'marca' => 'Nissan',
+            'modelo' => 'Navara 2008 Azul',
+            'nombre_propietario' => 'Fernando',
+            'fono_propietario' => '953333094',
+            'tipo_vehiculo' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 }
