@@ -7,7 +7,7 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Argon Dashboard') }}</title>
+        <title>{{ config('app.name', 'Dashboard') }}</title>
         <!-- Favicon -->
         <link href="{{ asset('argon') }}/img/brand/sammy.jpg" rel="icon" type="image/jpg">
         <!-- Fonts -->
@@ -23,8 +23,9 @@
         
         <div id="app">
         @guest
-        @include('layouts.navbars.navs.guest')
+            @include('layouts.navbars.navs.guest')
         @endguest
+        
         @auth()
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
@@ -38,10 +39,11 @@
             
         </div>
 
+
         @guest()
             @include('layouts.footers.guest')
         @endguest
-
+        
         </div>
 
         

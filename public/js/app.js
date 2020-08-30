@@ -4481,6 +4481,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -4683,12 +4684,72 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
         }
       });
     },
-    generarPDF: function generarPDF(servicio) {
-      // Nombre del Documento
-      var pdfName = 'Orden de Servicio #' + servicio.id;
-      var doc = new jspdf__WEBPACK_IMPORTED_MODULE_2__["default"]('p', 'mm', 'letter');
-      doc.text("Servicio Prestado Vehiculo : " + servicio.patente + " " + servicio.marca + " " + servicio.modelo, 40, 250, 'center'); //doc.addImage("img/5d9b25944d92e.jpg", "JPEG", 15, 40, 180, 180);
+    CrearPDF: function CrearPDF(servicio) {
+      var _this2 = this;
 
+      axios.get('/detallesporservicio/' + servicio.id).then(function (response) {
+        _this2.generarPDF(servicio, response.data);
+      })["catch"](function (errors) {
+        console.log(errors);
+      });
+    },
+    generarPDF: function generarPDF(servicio, detalles) {
+      // Nombre del Documento
+      var pdfName = 'Orden_de_Servicio_' + servicio.id; // Dar Tamaño
+
+      var doc = new jspdf__WEBPACK_IMPORTED_MODULE_2__["default"]('p', 'pt', 'letter');
+      doc.setFontSize(14);
+      doc.text("ORDEN DE SERVICIO N° " + servicio.id, 40, 45);
+      var logo = new Image();
+      logo.src = 'argon/img/brand/sammy.jpg';
+      doc.addImage(logo, 'JPG', 500, 40);
+      doc.setFontSize(12);
+      doc.text("Datos del Vehículo", 40, 85);
+      doc.text('_________________', 40, 87);
+      doc.setFontSize(12);
+      doc.text("Patente : " + servicio.patente, 40, 110);
+      doc.text("Marca : " + servicio.marca, 40, 125);
+      doc.text("Modelo : " + servicio.modelo, 40, 140);
+      doc.text("Propietario : " + servicio.propietario, 40, 155);
+      doc.text("Fecha Ingreso : " + servicio.created_at, 40, 170); // Titulo Detalles
+
+      doc.text("Servicio o Insumo", 40, 210);
+      doc.text("Valor Neto", 500, 210);
+      doc.text('_______________________________________________________________________________', 40, 213);
+      doc.setFontSize(10);
+      var linea = 212; // Agregar Detalles
+
+      detalles.forEach(function (element) {
+        linea = linea + 20;
+        doc.text(element.servicio, 40, linea);
+        doc.text("$" + new Intl.NumberFormat().format(element.detalle_neto), 500, linea);
+      });
+      linea = linea + 10;
+      doc.text('_______________________________________________________________________________________________', 40, linea);
+      linea = linea + 20;
+      doc.text("Total Neto : ", 430, linea);
+      doc.text("$" + new Intl.NumberFormat().format(servicio.valor_neto), 500, linea);
+      linea = linea + 20;
+      doc.text("I.V.A (%) : ", 430, linea);
+      doc.text("$" + new Intl.NumberFormat().format(servicio.valor_total - servicio.valor_neto), 500, linea);
+      linea = linea + 20;
+      doc.text("A Pagar : ", 430, linea);
+      doc.text("$" + new Intl.NumberFormat().format(servicio.valor_total), 500, linea);
+      linea = linea + 30;
+      doc.text("Notas u Observaciones : ", 40, linea);
+      linea = linea + 20;
+      doc.text(servicio.comentario, 40, linea);
+      linea = linea + 20;
+      doc.text("Estado : ", 40, linea);
+      doc.text(servicio.estado, 80, linea);
+      linea = linea + 30;
+      doc.text("Formas de Pago : Depósito Bancario a nombre de SAMMI LTDA, Chequera Electrónica Banco Estado N° 517-7-044612-4, ", 40, linea);
+      linea = linea + 10;
+      doc.text("Rut : 76.783.908-1, Correo Electrónico : guillermo.sammi@gmail.com", 40, linea);
+      linea = linea + 30;
+      var asisepaga = new Image();
+      asisepaga.src = 'img/formasdepago.png';
+      doc.addImage(asisepaga, 'PNG', 200, linea, 200, 200);
       doc.save(pdfName + '.pdf');
     },
     validarTaller: function validarTaller() {
@@ -4710,7 +4771,7 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
       this.estado = "En curso";
     },
     abrirModal: function abrirModal(modelo, accion) {
-      var _this2 = this;
+      var _this3 = this;
 
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
@@ -4750,7 +4811,7 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
                   this.detalles = data["detalles"]; // Buscar Detalles del Servicio
 
                   axios.get('/detallesporservicio/' + this.id).then(function (response) {
-                    _this2.detalles = response.data;
+                    _this3.detalles = response.data;
                   })["catch"](function (errors) {
                     console.log(errors);
                   });
@@ -30208,7 +30269,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "header bg-gradient-warning pb-8 pt-5 pt-md-5" }, [
+    _c("div", { staticClass: "header bg-gradient-primary pb-8 pt-5 pt-md-5" }, [
       _c("div", { staticClass: "container-fluid" }, [
         _c("div", { staticClass: "header-body" }, [
           _c("div", { staticClass: "row" }, [
@@ -31410,7 +31471,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "header bg-gradient-warning pb-8 pt-5 pt-md-2" }),
+    _c("div", { staticClass: "header bg-gradient-primary pb-8 pt-5 pt-md-2" }),
     _vm._v(" "),
     _c("div", { staticClass: "container-fluid mt--7" }, [
       _vm._m(0),
@@ -31524,7 +31585,7 @@ var render = function() {
                                     on: {
                                       click: function($event) {
                                         $event.preventDefault()
-                                        return _vm.generarPDF(taller)
+                                        return _vm.CrearPDF(taller)
                                       }
                                     }
                                   },
@@ -31954,6 +32015,7 @@ var render = function() {
                           staticClass: "form-control",
                           attrs: {
                             type: "text",
+                            maxlength: "70",
                             placeholder: "Ej : Pastillas de freno"
                           },
                           domProps: { value: _vm.detalle },
@@ -32314,7 +32376,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "header bg-gradient-warning pb-8 pt-5 pt-md-2" }),
+    _c("div", { staticClass: "header bg-gradient-primary pb-8 pt-5 pt-md-2" }),
     _vm._v(" "),
     _c("div", { staticClass: "container-fluid mt--7" }, [
       _vm._m(0),
@@ -32783,7 +32845,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "header bg-gradient-warning pb-8 pt-5 pt-md-2" }),
+    _c("div", { staticClass: "header bg-gradient-primary pb-8 pt-5 pt-md-2" }),
     _vm._v(" "),
     _c("div", { staticClass: "container-fluid mt--7" }, [
       _vm._m(0),
@@ -46993,7 +47055,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\sammy\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\carrito\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

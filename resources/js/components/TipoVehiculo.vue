@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="header bg-gradient-warning pb-8 pt-5 pt-md-2"></div>
+    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-2"></div>
     <div class="container-fluid mt--7">
       <div class="header-body">
         <a

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="header bg-gradient-warning pb-8 pt-5 pt-md-2"></div>
+    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-2"></div>
     <div class="container-fluid mt--7">
       <div class="header-body">
         <a
@@ -74,7 +74,7 @@
                           <a
                             style="cursor:pointer;"
                             class="dropdown-item"
-                            @click.prevent="generarPDF(taller)"
+                            @click.prevent="CrearPDF(taller)"
                           >Generar PDF</a>
                           <a
                             style="cursor:pointer;"
@@ -215,6 +215,7 @@
                 <div class="col-md-6">
                     <input
                     type="text"
+                    maxlength="70"
                     v-model="detalle"
                     class="form-control"
                     placeholder="Ej : Pastillas de freno"
@@ -323,7 +324,7 @@ export default {
   props: ["ruta"],
   created(){
     axios.get('/todoslosvehiculos').then(response => { this.vehiculos = response.data; }).catch(errors => { console.log(errors); })
-
+  
   },
   data() {
     return {
@@ -534,13 +535,68 @@ export default {
       });
     },
 
-    generarPDF(servicio){
-      // Nombre del Documento
-      let pdfName = 'Orden de Servicio #' + servicio.id; 
-      var doc = new jsPDF('p', 'mm', 'letter');
+    CrearPDF(servicio){
+      axios.get('/detallesporservicio/'+ servicio.id).then(response => { this.generarPDF(servicio,response.data); }).catch(errors => { console.log(errors); });
       
-      doc.text("Servicio Prestado Vehiculo : " + servicio.patente + " " + servicio.marca + " " + servicio.modelo, 40, 250, 'center');
-      //doc.addImage("img/5d9b25944d92e.jpg", "JPEG", 15, 40, 180, 180);
+    },
+
+    generarPDF(servicio,detalles){
+       // Nombre del Documento
+      let pdfName = 'Orden_de_Servicio_' + servicio.id; 
+      // Dar Tamaño
+      var doc = new jsPDF('p','pt','letter');
+      doc.setFontSize(14);
+      doc.text("ORDEN DE SERVICIO N° " + servicio.id, 40, 45);
+      var logo = new Image();
+      logo.src = 'argon/img/brand/sammy.jpg';
+      doc.addImage(logo, 'JPG', 500, 40);
+      doc.setFontSize(12);
+      doc.text("Datos del Vehículo", 40, 85);
+      doc.text('_________________', 40, 87)
+      doc.setFontSize(12);
+      doc.text("Patente : " + servicio.patente, 40, 110);
+      doc.text("Marca : " + servicio.marca, 40, 125);
+      doc.text("Modelo : " + servicio.modelo, 40, 140);
+      doc.text("Propietario : " + servicio.propietario, 40, 155);
+      doc.text("Fecha Ingreso : " + servicio.created_at, 40, 170);
+      // Titulo Detalles
+      doc.text("Servicio o Insumo", 40, 210);
+      doc.text("Valor Neto", 500, 210);
+      doc.text('_______________________________________________________________________________', 40, 213)
+      doc.setFontSize(10);
+      var linea = 212;
+      // Agregar Detalles
+      detalles.forEach(element => {
+        linea = linea + 20;
+        doc.text(element.servicio, 40, linea);
+        doc.text("$" + new Intl.NumberFormat().format(element.detalle_neto) , 500, linea);
+      });
+      linea = linea + 10;
+      doc.text('_______________________________________________________________________________________________', 40, linea)
+      linea = linea + 20;
+      doc.text("Total Neto : " , 430, linea);
+      doc.text("$" + new Intl.NumberFormat().format(servicio.valor_neto) , 500, linea);
+      linea = linea + 20;
+      doc.text("I.V.A (%) : " , 430, linea);
+      doc.text("$" + new Intl.NumberFormat().format(servicio.valor_total - servicio.valor_neto) , 500, linea);
+      linea = linea + 20;
+      doc.text("A Pagar : " , 430, linea);
+      doc.text("$" + new Intl.NumberFormat().format(servicio.valor_total) , 500, linea);
+      linea = linea + 30;
+      doc.text("Notas u Observaciones : " , 40, linea);
+      linea = linea + 20;
+      doc.text(servicio.comentario , 40, linea);
+      linea = linea + 20;
+      doc.text("Estado : " , 40, linea);
+      doc.text(servicio.estado , 80, linea);
+      linea = linea + 30;
+      doc.text("Formas de Pago : Depósito Bancario a nombre de SAMMI LTDA, Chequera Electrónica Banco Estado N° 517-7-044612-4, " , 40, linea);
+      linea = linea + 10;
+      doc.text("Rut : 76.783.908-1, Correo Electrónico : guillermo.sammi@gmail.com" , 40, linea);
+      linea = linea + 30;
+      var asisepaga = new Image();
+      asisepaga.src = 'img/formasdepago.png';
+      doc.addImage(asisepaga, 'PNG', 200, linea,200,200);
       doc.save(pdfName + '.pdf');
     },
 
