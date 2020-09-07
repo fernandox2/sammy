@@ -2831,6 +2831,883 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Cotizacion.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Cotizacion.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_currency_filter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-currency-filter */ "./node_modules/vue-currency-filter/lib-out/VueCurrencyFilter.js");
+/* harmony import */ var vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jspdf */ "./node_modules/jspdf/dist/jspdf.es.min.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["ruta"],
+  created: function created() {
+    var _this = this;
+
+    axios.get('/todoslosvehiculos').then(function (response) {
+      _this.vehiculos = response.data;
+    })["catch"](function (errors) {
+      console.log(errors);
+    });
+  },
+  data: function data() {
+    return {
+      id: 0,
+      item: 0,
+      descripcion: "",
+      nombre_cliente: "",
+      rut_cliente: "",
+      direccion_cliente: "",
+      contacto_cliente: "",
+      cantidad: "",
+      tipo: "Maestranza",
+      valor_neto: 0,
+      valor_total: 0,
+      precio_unidad: "",
+      valores: 0,
+      comentario: "",
+      forma_de_pago: "",
+      plazo_entrega: "",
+      lugar_entrega: "",
+      validez_cotizacion: "",
+      vehiculos: [],
+      arrayCotizacion: [],
+      detalles: [],
+      modal: 0,
+      tituloModal: "",
+      cotizacionAccion: 0,
+      errorCotizacion: 0,
+      errorMostrarMsjCotizacion: [],
+      pagination: {
+        total: 0,
+        current_page: 0,
+        per_page: 0,
+        last_page: 0,
+        from: 0,
+        to: 0
+      },
+      offset: 3,
+      criterio: "id",
+      buscar: ""
+    };
+  },
+  computed: {
+    isActived: function isActived() {
+      return this.pagination.current_page;
+    },
+    //Calcula los elementos de la paginación
+    pagesNumber: function pagesNumber() {
+      if (!this.pagination.to) {
+        return [];
+      }
+
+      var from = this.pagination.current_page - this.offset;
+
+      if (from < 1) {
+        from = 1;
+      }
+
+      var to = from + this.offset * 2;
+
+      if (to >= this.pagination.last_page) {
+        to = this.pagination.last_page;
+      }
+
+      var pagesArray = [];
+
+      while (from <= to) {
+        pagesArray.push(from);
+        from++;
+      }
+
+      return pagesArray;
+    }
+  },
+  methods: {
+    listarCotizacion: function listarCotizacion(page, buscar, criterio) {
+      var me = this;
+      var url = "/cotizacion?page=" + page + "&buscar=" + buscar + "&criterio=" + criterio;
+      axios.get(url).then(function (response) {
+        var respuesta = response.data;
+        me.arrayCotizacion = respuesta.cotizaciones.data;
+        me.pagination = respuesta.pagination;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    agregarDetalle: function agregarDetalle() {
+      var me = this;
+
+      if (me.descripcion != "") {
+        // Agregar al array
+        me.detalles.push({
+          descripcion: me.descripcion,
+          precio_unidad: me.precio_unidad,
+          cantidad: parseInt(me.cantidad),
+          valores: parseInt(me.cantidad) * parseInt(me.precio_unidad)
+        }); // Actualizar el Valor Neto del Servicio
+
+        me.valor_neto = parseInt(me.valor_neto) + parseInt(me.cantidad) * parseInt(me.precio_unidad); // Actualizar el Valor Total del Servicio
+
+        me.valor_total = parseInt(me.valor_neto) * 1.19; // Limpiar los inputs
+
+        me.precio_unidad = "";
+        me.descripcion = "";
+        me.cantidad = "";
+      }
+    },
+    eliminarDetalle: function eliminarDetalle(item) {
+      var me = this;
+      var i = me.detalles.indexOf(item);
+
+      if (i !== -1) {
+        me.detalles.splice(i, 1); // Actualizar el Valor Neto del Servicio
+
+        me.valor_neto = parseInt(me.valor_neto) - parseInt(item.valores); // Actualizar el Valor Total del Servicio
+
+        me.valor_total = parseInt(me.valor_neto) * 1.19;
+      }
+    },
+    cambiarPagina: function cambiarPagina(page, buscar, criterio) {
+      var me = this; //Actualiza la página actual
+
+      me.pagination.current_page = page; //Envia la petición para visualizar la data de esa página
+
+      me.listarCotizacion(page, buscar, criterio);
+    },
+    registrarCotizacion: function registrarCotizacion() {
+      if (this.validarCotizacion()) {
+        return;
+      }
+
+      var me = this;
+      axios.post("/cotizacion/registrar", {
+        nombre_cliente: me.nombre_cliente,
+        tipo: me.tipo,
+        rut_cliente: me.rut_cliente,
+        direccion_cliente: me.direccion_cliente,
+        contacto_cliente: me.contacto_cliente,
+        forma_de_pago: me.forma_de_pago,
+        plazo_entrega: me.plazo_entrega,
+        validez_cotizacion: me.validez_cotizacion,
+        lugar_entrega: me.lugar_entrega,
+        valor_neto: me.valor_neto,
+        valor_total: me.valor_total,
+        comentario: me.comentario,
+        detalles: me.detalles
+      }).then(function (response) {
+        me.cerrarModal();
+        me.listarCotizacion(1, "", "id");
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+          icon: "success",
+          title: "Excelente ...",
+          text: "Operacion Completada !"
+        });
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    actualizarCotizacion: function actualizarCotizacion() {
+      if (this.validarCotizacion()) {
+        return;
+      }
+
+      var me = this;
+      axios.put("/cotizacion/actualizar", {
+        nombre_cliente: me.nombre_cliente,
+        tipo: me.tipo,
+        rut_cliente: me.rut_cliente,
+        direccion_cliente: me.direccion_cliente,
+        contacto_cliente: me.contacto_cliente,
+        forma_de_pago: me.forma_de_pago,
+        plazo_entrega: me.plazo_entrega,
+        validez_cotizacion: me.validez_cotizacion,
+        lugar_entrega: me.lugar_entrega,
+        valor_neto: me.valor_neto,
+        valor_total: me.valor_total,
+        comentario: me.comentario,
+        detalles: me.detalles,
+        id: me.id
+      }).then(function (response) {
+        me.cerrarModal();
+        me.listarCotizacion(1, "", "id");
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+          icon: "success",
+          title: "Excelente ...",
+          text: "Operación Completada!"
+        });
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    eliminarCotizacion: function eliminarCotizacion(id) {
+      var me = this;
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+        title: "¿Está Seguro?",
+        text: "Esta acción no es reversible",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, Bórralo"
+      }).then(function (result) {
+        if (result.value) {
+          axios.put("/cotizacion/eliminar", {
+            id: id
+          }).then(function (response) {
+            me.listarCotizacion(1, "", "id");
+            sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire("Borrado!", "El registro fue eliminado del sistema.", "success");
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        }
+      });
+    },
+    CrearPDF: function CrearPDF(cotizacion) {
+      var _this2 = this;
+
+      axios.get('/detallesporcotizacion/' + cotizacion.id).then(function (response) {
+        _this2.generarPDF(cotizacion, response.data);
+      })["catch"](function (errors) {
+        console.log(errors);
+      });
+    },
+    isNull: function isNull(texto) {
+      if (texto === null) {
+        return "";
+      } else {
+        return texto;
+      }
+    },
+    generarPDF: function generarPDF(cotizacion, detalles) {
+      // Nombre del Documento
+      var pdfName = 'Cotizacion_' + cotizacion.id; // Dar Tamaño al PDF
+
+      var doc = new jspdf__WEBPACK_IMPORTED_MODULE_2__["default"]('p', 'pt', 'letter'); // Agregar Logo Principal
+
+      var logo = new Image();
+      logo.src = 'argon/img/brand/sammi.jpg';
+      doc.addImage(logo, 'JPG', 40, 40);
+      doc.setFontSize(12);
+      doc.text("SAMMI LTDA", 160, 60);
+      doc.setFontSize(10);
+
+      if (cotizacion.tipo == "Maestranza") {
+        doc.text("Maestranza y Mantención Industrial", 160, 75);
+      } else {
+        doc.text("Muebles de Madera", 160, 75);
+      }
+
+      doc.text("Rut 76.783.908-1", 160, 90);
+      doc.text("Vicuña Mackenna N° 1812 - San Carlos, Ñuble", 160, 105);
+      doc.text("Teléfono: +56988054341", 160, 120); // Datos del Cliente - Verificar Blancos
+
+      var nombre_cliente = this.isNull(cotizacion.nombre_cliente);
+      var rut_cliente = this.isNull(cotizacion.rut_cliente);
+      var direccion_cliente = this.isNull(cotizacion.direccion_cliente);
+      var contacto_cliente = this.isNull(cotizacion.contacto_cliente); // Imprimir Datos Cliente
+
+      doc.text("Señor(es) : " + nombre_cliente.trim().toLowerCase().replace(/\w\S*/g, function (w) {
+        return w.replace(/^\w/, function (c) {
+          return c.toUpperCase();
+        });
+      }), 40, 150);
+      doc.text("Rut : " + rut_cliente.trim().toLowerCase().replace(/\w\S*/g, function (w) {
+        return w.replace(/^\w/, function (c) {
+          return c.toUpperCase();
+        });
+      }), 40, 165);
+      doc.text("Dirección : " + direccion_cliente.trim().toLowerCase().replace(/\w\S*/g, function (w) {
+        return w.replace(/^\w/, function (c) {
+          return c.toUpperCase();
+        });
+      }), 40, 180);
+      doc.text("Atención  : " + contacto_cliente.trim().toLowerCase().replace(/\w\S*/g, function (w) {
+        return w.replace(/^\w/, function (c) {
+          return c.toUpperCase();
+        });
+      }), 40, 195);
+      doc.setFontSize(12);
+      doc.text("Cotización N° " + cotizacion.id, 450, 150);
+      doc.setFontSize(10);
+      doc.text("Fecha : " + cotizacion.created_at, 40, 220); // Comienza Tabla de Deatlles
+      // Titulo Detalles
+
+      doc.setFontSize(11);
+      doc.text("Item", 40, 250);
+      doc.text("Descripción", 80, 250);
+      doc.text("Cant", 350, 250);
+      doc.text("Precio Unidad", 400, 250);
+      doc.text("Valores", 500, 250);
+      doc.text('___________________________________________________________________________________', 40, 253);
+      doc.setFontSize(10); // Crea Variable Contador de Lineas
+
+      var linea = 250; // Agregar Detalles
+
+      detalles.forEach(function (element) {
+        linea = linea + 20;
+        doc.text(String(element.item), 45, linea);
+        var lines = doc.splitTextToSize(element.descripcion.trim().toLowerCase().replace(/\w\S*/g, function (w) {
+          return w.replace(/^\w/, function (c) {
+            return c.toUpperCase();
+          });
+        }), 250);
+        doc.text(82, linea, lines, {
+          maxWidth: 258,
+          align: "justify"
+        });
+        doc.text(String(element.cantidad), 355, linea);
+        doc.text("$ " + new Intl.NumberFormat().format(element.precio_unidad), 400, linea);
+        doc.text("$ " + new Intl.NumberFormat().format(element.valores), 500, linea); // Verificar si es multi linea y saltar las lineas adecuadas
+
+        if (lines.length > 1) {
+          linea = linea + lines.length * 10;
+        }
+
+        doc.text('____________________________________________________________________________________________', 40, linea + 5); // Si llega a 600pt entonces agrega una nueva página    
+
+        if (linea > 600) {
+          doc.addPage('letter', 'pt', 'p');
+          linea = 40;
+        }
+      });
+      linea = linea + 20;
+      doc.text("Total Neto : ", 430, linea);
+      doc.text("$ " + new Intl.NumberFormat().format(cotizacion.valor_neto), 500, linea);
+      linea = linea + 20;
+      doc.text("I.V.A (%) : ", 430, linea);
+      doc.text("$ " + new Intl.NumberFormat().format(cotizacion.valor_total - cotizacion.valor_neto), 500, linea);
+      linea = linea + 20;
+      doc.text("A Pagar : ", 430, linea);
+      doc.text("$ " + new Intl.NumberFormat().format(cotizacion.valor_total), 500, linea);
+      linea = linea + 30;
+      doc.text("Notas u Observaciones : ", 40, linea);
+      linea = linea + 20;
+      var comentario = this.isNull(cotizacion.comentario);
+      var lines = doc.splitTextToSize(comentario.trim().toLowerCase().replace(/\w\S*/g, function (w) {
+        return w.replace(/^\w/, function (c) {
+          return c.toUpperCase();
+        });
+      }), 250);
+      doc.text(40, linea, lines, {
+        maxWidth: 500,
+        align: "justify"
+      });
+
+      if (lines.length > 1) {
+        linea = linea + lines.length * 5;
+      }
+
+      linea = linea + 20;
+      doc.text("Condiciones ", 40, linea);
+      linea = linea + 15;
+      var forma_de_pago = this.isNull(cotizacion.forma_de_pago);
+      doc.text("Forma de Pago : " + forma_de_pago.trim().toLowerCase().replace(/\w\S*/g, function (w) {
+        return w.replace(/^\w/, function (c) {
+          return c.toUpperCase();
+        });
+      }), 40, linea);
+      linea = linea + 15;
+      var plazo_entrega = this.isNull(cotizacion.plazo_entrega);
+      doc.text("Plazo de Entrega : " + plazo_entrega.trim().toLowerCase().replace(/\w\S*/g, function (w) {
+        return w.replace(/^\w/, function (c) {
+          return c.toUpperCase();
+        });
+      }), 40, linea);
+      linea = linea + 15;
+      var validez_cotizacion = this.isNull(cotizacion.validez_cotizacion);
+      doc.text("Validéz de la Cotización : " + validez_cotizacion.trim().toLowerCase().replace(/\w\S*/g, function (w) {
+        return w.replace(/^\w/, function (c) {
+          return c.toUpperCase();
+        });
+      }), 40, linea);
+      linea = linea + 15;
+      var lugar_entrega = this.isNull(cotizacion.lugar_entrega);
+      doc.text("Lugar de Entrega : " + lugar_entrega.trim().toLowerCase().replace(/\w\S*/g, function (w) {
+        return w.replace(/^\w/, function (c) {
+          return c.toUpperCase();
+        });
+      }), 40, linea);
+      doc.save(pdfName + '.pdf');
+    },
+    validarCotizacion: function validarCotizacion() {
+      this.errorCotizacion = 0;
+      this.errorMostrarMsjCotizacion = [];
+      if (this.nombre_cliente == 0) this.errorMostrarMsjCotizacion.push("Debe ingresar un cliente al cual cotizar.");
+      if (this.detalles.length == 0) this.errorMostrarMsjCotizacion.push("Debe agregar al menos un detalle a la cotización.");
+      if (this.errorMostrarMsjCotizacion.length) this.errorCotizacion = 1;
+      return this.errorCotizacion;
+    },
+    cerrarModal: function cerrarModal() {
+      this.modal = 0;
+      this.tituloModal = "";
+      this.comentario = "";
+      this.valor_neto = 0;
+      this.valor_total = 0;
+      this.nombre_cliente = 0;
+      this.detalles = [];
+      this.contacto_cliente = "";
+      this.rut_cliente = "";
+      this.direccion_cliente = "";
+      this.forma_de_pago = "";
+      this.plazo_entrega = "";
+      this.validez_cotizacion = "";
+      this.lugar_entrega = "";
+      this.tipo = "Maestranza";
+    },
+    abrirModal: function abrirModal(modelo, accion) {
+      var _this3 = this;
+
+      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+
+      switch (modelo) {
+        case "cotizacion":
+          {
+            switch (accion) {
+              case "registrar":
+                {
+                  this.modal = 1;
+                  this.tituloModal = "Nueva Cotización";
+                  this.nombre_cliente = "";
+                  this.rut_cliente = "";
+                  this.direccion_cliente = "";
+                  this.contacto_cliente = "";
+                  this.comentario = "";
+                  this.detalles = [];
+                  this.valor_neto = 0;
+                  this.valor_neto = 0;
+                  this.forma_de_pago = "";
+                  this.plazo_entrega = "";
+                  this.validez_cotizacion = "";
+                  this.lugar_entrega = "";
+                  this.tipo = "Maestranza";
+                  this.cotizacionAccion = 1;
+                  break;
+                }
+
+              case "actualizar":
+                {
+                  this.modal = 1;
+                  this.tituloModal = "Actualizar Cotización N° " + data["id"];
+                  this.cotizacionAccion = 2;
+                  this.id = data["id"];
+                  this.comentario = data["comentario"];
+                  this.valor_neto = data["valor_neto"];
+                  this.valor_total = data["valor_total"];
+                  this.nombre_cliente = data["nombre_cliente"];
+                  this.rut_cliente = data["rut_cliente"];
+                  this.direccion_cliente = data["direccion_cliente"];
+                  this.contacto_cliente = data["contacto_cliente"];
+                  this.forma_de_pago = data["forma_de_pago"];
+                  this.plazo_entrega = data["plazo_entrega"];
+                  this.validez_cotizacion = data["validez_cotizacion"];
+                  this.tipo = data["tipo"];
+                  this.lugar_entrega = data["lugar_entrega"]; // Buscar Detalles del Servicio
+
+                  axios.get('/detallesporcotizacion/' + this.id).then(function (response) {
+                    _this3.detalles = response.data;
+                  })["catch"](function (errors) {
+                    console.log(errors);
+                  });
+                  break;
+                }
+            }
+          }
+      }
+    }
+  },
+  mounted: function mounted() {
+    this.listarCotizacion(1, this.buscar, this.criterio);
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Empresa.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Empresa.vue?vue&type=script&lang=js& ***!
@@ -4482,6 +5359,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4502,6 +5390,7 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
       id: 0,
       estado: "En curso",
       vehiculo: 0,
+      tipo: "Mano de Obra Mecánica",
       detalle: "",
       valor_neto: 0,
       valor_total: 0,
@@ -4580,7 +5469,8 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
         // Agregar al array
         me.detalles.push({
           servicio: me.detalle,
-          detalle_neto: me.detalle_neto
+          detalle_neto: me.detalle_neto,
+          tipo: me.tipo
         }); // Actualizar el Valor Neto del Servicio
 
         me.valor_neto = parseInt(me.valor_neto) + parseInt(me.detalle_neto); // Actualizar el Valor Total del Servicio
@@ -4693,63 +5583,246 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
         console.log(errors);
       });
     },
+    isNull: function isNull(texto) {
+      if (texto === null) {
+        return "";
+      } else {
+        return texto;
+      }
+    },
     generarPDF: function generarPDF(servicio, detalles) {
       // Nombre del Documento
-      var pdfName = 'Orden_de_Servicio_' + servicio.id; // Dar Tamaño
+      var pdfName = 'Orden_de_Servicio_' + servicio.id; // Dar Tamaño al PDF
 
-      var doc = new jspdf__WEBPACK_IMPORTED_MODULE_2__["default"]('p', 'pt', 'letter');
-      doc.setFontSize(14);
-      doc.text("ORDEN DE SERVICIO N° " + servicio.id, 40, 45);
+      var doc = new jspdf__WEBPACK_IMPORTED_MODULE_2__["default"]('p', 'pt', 'letter'); // Agregar Logo Principal
+
       var logo = new Image();
-      logo.src = 'argon/img/brand/sammy.jpg';
-      doc.addImage(logo, 'JPG', 500, 40);
+      logo.src = 'argon/img/brand/sammi.jpg';
+      doc.addImage(logo, 'JPG', 40, 40);
       doc.setFontSize(12);
-      doc.text("Datos del Vehículo", 40, 85);
-      doc.text('_________________', 40, 87);
-      doc.setFontSize(12);
-      doc.text("Patente : " + servicio.patente, 40, 110);
-      doc.text("Marca : " + servicio.marca, 40, 125);
-      doc.text("Modelo : " + servicio.modelo, 40, 140);
-      doc.text("Propietario : " + servicio.propietario, 40, 155);
-      doc.text("Fecha Ingreso : " + servicio.created_at, 40, 170); // Titulo Detalles
-
-      doc.text("Servicio o Insumo", 40, 210);
-      doc.text("Valor Neto", 500, 210);
-      doc.text('_______________________________________________________________________________', 40, 213);
+      doc.text("SAMMI LTDA", 160, 60);
       doc.setFontSize(10);
-      var linea = 212; // Agregar Detalles
+      doc.text("Servicio Automotriz", 160, 75);
+      doc.text("Rut 76.783.908-1", 160, 90);
+      doc.text("Vicuña Mackenna N° 1812 - San Carlos, Ñuble", 160, 105);
+      doc.text("Teléfono: +56988054341", 160, 120);
+      var asisepaga = new Image();
+      asisepaga.src = 'img/formasdepago.png';
+      doc.addImage(asisepaga, 'PNG', 500, 40, 50, 50); // Datos del Cliente - Verificar Blancos
+
+      var nombre_propietario = this.isNull(servicio.propietario);
+      var patente = this.isNull(servicio.patente);
+      var marca = this.isNull(servicio.marca);
+      var modelo = this.isNull(servicio.modelo); // Imprimir Datos Cliente
+
+      doc.text("Cliente : " + nombre_propietario.trim().toLowerCase().replace(/\w\S*/g, function (w) {
+        return w.replace(/^\w/, function (c) {
+          return c.toUpperCase();
+        });
+      }), 40, 150);
+      doc.text("Patente : " + patente.trim().toUpperCase(), 40, 165);
+      doc.text("Marca : " + marca.trim().toLowerCase().replace(/\w\S*/g, function (w) {
+        return w.replace(/^\w/, function (c) {
+          return c.toUpperCase();
+        });
+      }), 40, 180);
+      doc.text("Modelo  : " + modelo.trim().toLowerCase().replace(/\w\S*/g, function (w) {
+        return w.replace(/^\w/, function (c) {
+          return c.toUpperCase();
+        });
+      }), 40, 195);
+      doc.text("Fecha : " + servicio.created_at, 40, 210);
+      doc.setFontSize(12);
+      doc.text("Orden de Servicio N° " + servicio.id, 425, 150);
+      doc.setFontSize(10); // Comienza Tabla de Deatlles
+      // Titulo Detalles
+
+      doc.setFontSize(11);
+      doc.text("Descripción", 40, 250);
+      doc.text("Valores", 500, 250);
+      doc.text('___________________________________________________________________________________', 40, 253);
+      doc.setFontSize(10); // Crea Variable Contador de Lineas
+
+      var linea = 270; //Impirmir Mano de Obra Mecánica
+
+      doc.setFontSize(11);
+      doc.text("Mano de Obra Mecánica", 40, linea);
+      doc.setFontSize(10); // Variable Sub Total Mano de Obra Mecanica
+
+      var mom = 0; // Agregar Detalles
 
       detalles.forEach(function (element) {
-        linea = linea + 20;
-        doc.text(element.servicio, 40, linea);
-        doc.text("$" + new Intl.NumberFormat().format(element.detalle_neto), 500, linea);
+        if (element.tipo === "Mano de Obra Mecánica") {
+          linea = linea + 20;
+          var lines = doc.splitTextToSize(element.servicio.replace(/^\w/, function (c) {
+            return c.toUpperCase();
+          }), 250);
+          doc.text(40, linea, lines, {
+            maxWidth: 350,
+            align: "justify"
+          });
+          mom = mom + parseInt(element.valor_neto);
+          doc.text("$ " + new Intl.NumberFormat().format(element.valor_neto), 500, linea); // Verificar si es multi linea y saltar las lineas adecuadas
+
+          if (lines.length > 1) {
+            linea = linea + lines.length * 10;
+          } // Si llega a 600pt entonces agrega una nueva página    
+
+
+          if (linea > 600) {
+            doc.addPage('letter', 'pt', 'p');
+            linea = 40;
+          }
+        }
       });
-      linea = linea + 10;
-      doc.text('_______________________________________________________________________________________________', 40, linea);
+      doc.text('____________________________________________________________________________________________', 40, linea + 5);
+      linea = linea + 20;
+      doc.text("Sub Total (1) : ", 430, linea);
+      doc.text("$ " + new Intl.NumberFormat().format(mom), 500, linea); //Impirmir Mano de Obra Eléctrica
+
+      linea = linea + 20;
+      doc.setFontSize(11);
+      doc.text("Mano de Obra Eléctrica", 40, linea);
+      doc.setFontSize(10);
+      var moe = 0; // Agregar Detalles
+
+      detalles.forEach(function (element) {
+        if (element.tipo === "Mano de Obra Eléctrica") {
+          linea = linea + 20;
+          var lines = doc.splitTextToSize(element.servicio.replace(/^\w/, function (c) {
+            return c.toUpperCase();
+          }), 250);
+          doc.text(40, linea, lines, {
+            maxWidth: 350,
+            align: "justify"
+          });
+          moe = moe + parseInt(element.valor_neto);
+          doc.text("$ " + new Intl.NumberFormat().format(element.valor_neto), 500, linea); // Verificar si es multi linea y saltar las lineas adecuadas
+
+          if (lines.length > 1) {
+            linea = linea + lines.length * 10;
+          } // Si llega a 600pt entonces agrega una nueva página    
+
+
+          if (linea > 600) {
+            doc.addPage('letter', 'pt', 'p');
+            linea = 40;
+          }
+        }
+      });
+      doc.text('____________________________________________________________________________________________', 40, linea + 5);
+      linea = linea + 20;
+      doc.text("Sub Total (2) : ", 430, linea);
+      doc.text("$ " + new Intl.NumberFormat().format(moe), 500, linea); //Impirmir Ventas o Servicios
+
+      linea = linea + 20;
+      doc.setFontSize(11);
+      doc.text("Ventas o Servicios", 40, linea);
+      doc.setFontSize(10);
+      var vos = 0; // Agregar Detalles
+
+      detalles.forEach(function (element) {
+        if (element.tipo === "Ventas o Servicios") {
+          linea = linea + 20;
+          var lines = doc.splitTextToSize(element.servicio.replace(/^\w/, function (c) {
+            return c.toUpperCase();
+          }), 250);
+          doc.text(40, linea, lines, {
+            maxWidth: 350,
+            align: "justify"
+          });
+          vos = vos + parseInt(element.valor_neto);
+          doc.text("$ " + new Intl.NumberFormat().format(element.valor_neto), 500, linea); // Verificar si es multi linea y saltar las lineas adecuadas
+
+          if (lines.length > 1) {
+            linea = linea + lines.length * 10;
+          } // Si llega a 600pt entonces agrega una nueva página    
+
+
+          if (linea > 600) {
+            doc.addPage('letter', 'pt', 'p');
+            linea = 40;
+          }
+        }
+      });
+      doc.text('____________________________________________________________________________________________', 40, linea + 5);
+      linea = linea + 20;
+      doc.text("Sub Total (3) : ", 430, linea);
+      doc.text("$ " + new Intl.NumberFormat().format(vos), 500, linea); //Impirmir Repuestos o Insumos
+
+      linea = linea + 20;
+      doc.setFontSize(11);
+      doc.text("Repuestos o Insumos", 40, linea);
+      doc.setFontSize(10);
+      var roi = 0; // Agregar Detalles
+
+      detalles.forEach(function (element) {
+        if (element.tipo === "Repuestos o Insumos") {
+          linea = linea + 20;
+          var lines = doc.splitTextToSize(element.servicio.replace(/^\w/, function (c) {
+            return c.toUpperCase();
+          }), 250);
+          doc.text(40, linea, lines, {
+            maxWidth: 350,
+            align: "justify"
+          });
+          roi = roi + parseInt(element.valor_neto);
+          doc.text("$ " + new Intl.NumberFormat().format(element.valor_neto), 500, linea); // Verificar si es multi linea y saltar las lineas adecuadas
+
+          if (lines.length > 1) {
+            linea = linea + lines.length * 10;
+          } // Si llega a 600pt entonces agrega una nueva página    
+
+
+          if (linea > 600) {
+            doc.addPage('letter', 'pt', 'p');
+            linea = 40;
+          }
+        }
+      });
+      doc.text('____________________________________________________________________________________________', 40, linea + 5);
+      linea = linea + 20;
+      doc.text("Sub Total (4) : ", 430, linea);
+      doc.text("$ " + new Intl.NumberFormat().format(roi), 500, linea);
+      linea = linea + 20; //Imprimir Totales
+
       linea = linea + 20;
       doc.text("Total Neto : ", 430, linea);
-      doc.text("$" + new Intl.NumberFormat().format(servicio.valor_neto), 500, linea);
+      doc.text("$ " + new Intl.NumberFormat().format(servicio.valor_neto), 500, linea);
       linea = linea + 20;
       doc.text("I.V.A (%) : ", 430, linea);
-      doc.text("$" + new Intl.NumberFormat().format(servicio.valor_total - servicio.valor_neto), 500, linea);
+      doc.text("$ " + new Intl.NumberFormat().format(servicio.valor_total - servicio.valor_neto), 500, linea);
       linea = linea + 20;
       doc.text("A Pagar : ", 430, linea);
-      doc.text("$" + new Intl.NumberFormat().format(servicio.valor_total), 500, linea);
+      doc.text("$ " + new Intl.NumberFormat().format(servicio.valor_total), 500, linea);
       linea = linea + 30;
       doc.text("Notas u Observaciones : ", 40, linea);
       linea = linea + 20;
-      doc.text(servicio.comentario, 40, linea);
+      var comentario = this.isNull(servicio.comentario);
+      var lines = doc.splitTextToSize(comentario.trim().toLowerCase().replace(/\w\S*/g, function (w) {
+        return w.replace(/^\w/, function (c) {
+          return c.toUpperCase();
+        });
+      }), 250);
+      doc.text(40, linea, lines, {
+        maxWidth: 500,
+        align: "justify"
+      });
+
+      if (lines.length > 1) {
+        linea = linea + lines.length * 5;
+      }
+
       linea = linea + 20;
       doc.text("Estado : ", 40, linea);
       doc.text(servicio.estado, 80, linea);
       linea = linea + 30;
-      doc.text("Formas de Pago : Depósito Bancario a nombre de SAMMI LTDA, Chequera Electrónica Banco Estado N° 517-7-044612-4, ", 40, linea);
-      linea = linea + 10;
-      doc.text("Rut : 76.783.908-1, Correo Electrónico : guillermo.sammi@gmail.com", 40, linea);
-      linea = linea + 30;
-      var asisepaga = new Image();
-      asisepaga.src = 'img/formasdepago.png';
-      doc.addImage(asisepaga, 'PNG', 200, linea, 200, 200);
+      var lines = doc.splitTextToSize("Formas de Pago : Depósito Bancario a nombre de SAMMI LTDA, Chequera Electrónica Banco Estado N° 517-7-044612-4, Rut : 76.783.908-1, Correo Electrónico : guillermo.sammi@gmail.com", 250);
+      doc.text(40, linea, lines, {
+        maxWidth: 500,
+        align: "justify"
+      }); // generar el PDF
+
       doc.save(pdfName + '.pdf');
     },
     validarTaller: function validarTaller() {
@@ -4792,7 +5865,6 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
                   this.nombre_propietario = "";
                   this.correo_propietario = "";
                   this.fono_propietario = "";
-                  this.tipo = 0;
                   this.tallerAccion = 1;
                   break;
                 }
@@ -29414,6 +30486,1221 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Cotizacion.vue?vue&type=template&id=18935db8&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Cotizacion.vue?vue&type=template&id=18935db8& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "header bg-gradient-primary pb-8 pt-5 pt-md-2" }),
+    _vm._v(" "),
+    _c("div", { staticClass: "container-fluid mt--7" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col" }, [
+          _c("div", { staticClass: "card shadow" }, [
+            _c("div", { staticClass: "card-header border-0" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success float-left",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.abrirModal("cotizacion", "registrar")
+                    }
+                  }
+                },
+                [_vm._v("Nueva Cotizacion")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.buscar,
+                    expression: "buscar"
+                  }
+                ],
+                staticClass: "form-control float-right",
+                staticStyle: { "max-width": "300px" },
+                attrs: { type: "text", placeholder: "Buscar por Patente ..." },
+                domProps: { value: _vm.buscar },
+                on: {
+                  change: function($event) {
+                    return _vm.listarCotizacion(1, _vm.buscar)
+                  },
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.buscar = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "table-responsive" }, [
+              _c(
+                "table",
+                { staticClass: "table align-items-center table-flush" },
+                [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.arrayCotizacion, function(cotizacion) {
+                      return _c("tr", { key: cotizacion.id }, [
+                        _c("td", { staticClass: "text-left text-uppercase" }, [
+                          _c("small", {
+                            domProps: { textContent: _vm._s(cotizacion.id) }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-left text-uppercase" }, [
+                          _c("small", {
+                            domProps: {
+                              textContent: _vm._s(cotizacion.nombre_cliente)
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-left text-uppercase" }, [
+                          _c("small", {
+                            domProps: {
+                              textContent: _vm._s(cotizacion.contacto_cliente)
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-left text-uppercase" }, [
+                          _c("small", {
+                            domProps: { textContent: _vm._s(cotizacion.tipo) }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-left text-uppercase" }, [
+                          _c("small", {
+                            domProps: {
+                              textContent: _vm._s(cotizacion.created_at)
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-right" }, [
+                          _c("div", { staticClass: "dropdown" }, [
+                            _vm._m(3, true),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "dropdown-menu dropdown-menu-right dropdown-menu-arrow"
+                              },
+                              [
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "dropdown-item",
+                                    staticStyle: { cursor: "pointer" },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.CrearPDF(cotizacion)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Generar PDF")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "dropdown-item",
+                                    staticStyle: { cursor: "pointer" },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.abrirModal(
+                                          "cotizacion",
+                                          "actualizar",
+                                          cotizacion
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Modificar")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "dropdown-item",
+                                    staticStyle: { cursor: "pointer" },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.eliminarCotizacion(
+                                          cotizacion.id
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Eliminar")]
+                                )
+                              ]
+                            )
+                          ])
+                        ])
+                      ])
+                    }),
+                    0
+                  )
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-footer py-4" }, [
+              _c("nav", { attrs: { "aria-label": "..." } }, [
+                _c(
+                  "ul",
+                  { staticClass: "pagination justify-content-end mb-0" },
+                  [
+                    _vm.pagination.current_page > 1
+                      ? _c("li", { staticClass: "page-item" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "page-link",
+                              attrs: { tabindex: "-1" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.cambiarPagina(
+                                    _vm.pagination.current_page - 1,
+                                    _vm.buscar,
+                                    _vm.criterio
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-angle-left" }),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "sr-only" }, [
+                                _vm._v("Atrás")
+                              ])
+                            ]
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm._l(_vm.pagesNumber, function(page) {
+                      return _c(
+                        "li",
+                        {
+                          key: page,
+                          staticClass: "page-item active",
+                          class: [page == _vm.isActived ? "active" : ""]
+                        },
+                        [
+                          _c("a", {
+                            staticClass: "page-link",
+                            domProps: { textContent: _vm._s(page) },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.cambiarPagina(
+                                  page,
+                                  _vm.buscar,
+                                  _vm.criterio
+                                )
+                              }
+                            }
+                          })
+                        ]
+                      )
+                    }),
+                    _vm._v(" "),
+                    _vm.pagination.current_page < _vm.pagination.last_page
+                      ? _c("li", { staticClass: "page-item" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "page-link",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.cambiarPagina(
+                                    _vm.pagination.current_page + 1,
+                                    _vm.buscar,
+                                    _vm.criterio
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-angle-right" }),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "sr-only" }, [
+                                _vm._v("Siguiente")
+                              ])
+                            ]
+                          )
+                        ])
+                      : _vm._e()
+                  ],
+                  2
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        class: { mostrar: _vm.modal },
+        staticStyle: { display: "none", "overflow-y": "scroll" },
+        attrs: {
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "myModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c("h4", {
+                  staticClass: "modal-title text-primary",
+                  domProps: { textContent: _vm._s(_vm.tituloModal) }
+                }),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: { type: "button", "aria-label": "Close" },
+                    on: {
+                      click: function($event) {
+                        return _vm.cerrarModal()
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c(
+                  "form",
+                  {
+                    staticClass: "form-horizontal",
+                    attrs: {
+                      action: "",
+                      method: "post",
+                      enctype: "multipart/form-data"
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Señor(es) :")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.nombre_cliente,
+                              expression: "nombre_cliente"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Ej : IANSAGRO S.A"
+                          },
+                          domProps: { value: _vm.nombre_cliente },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.nombre_cliente = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Rut :")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.rut_cliente,
+                              expression: "rut_cliente"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Ej : 96.772.810-1"
+                          },
+                          domProps: { value: _vm.rut_cliente },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.rut_cliente = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Dirección :")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.direccion_cliente,
+                              expression: "direccion_cliente"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Ej : Cocharcas Km"
+                          },
+                          domProps: { value: _vm.direccion_cliente },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.direccion_cliente = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Atención Sr :")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.contacto_cliente,
+                              expression: "contacto_cliente"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Ej : Yurian Jiménez"
+                          },
+                          domProps: { value: _vm.contacto_cliente },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.contacto_cliente = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Comentario :")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.comentario,
+                              expression: "comentario"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder:
+                              "Ej : Visto los requerimientos en terreno ..."
+                          },
+                          domProps: { value: _vm.comentario },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.comentario = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("División :")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.tipo,
+                                expression: "tipo"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            on: {
+                              change: [
+                                function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.tipo = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                },
+                                function($event) {
+                                  $event.preventDefault()
+                                }
+                              ]
+                            }
+                          },
+                          [
+                            _c("option", { attrs: { value: "Maestranza" } }, [
+                              _vm._v("Maestranza")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Mueblería" } }, [
+                              _vm._v("Mueblería")
+                            ])
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Valor Neto:")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("h5", { staticClass: "text-left text-uppercase" }, [
+                          _vm._v(
+                            "$" + _vm._s(_vm._f("currency")(_vm.valor_neto))
+                          )
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Valor Total:")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("h5", { staticClass: "text-left text-uppercase" }, [
+                          _vm._v(
+                            "$" + _vm._s(_vm._f("currency")(_vm.valor_total))
+                          )
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("h4", { staticClass: "text-primary" }, [
+                      _vm._v("Servicios o Insumos")
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c("div", { staticClass: "col-md-5" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.descripcion,
+                              expression: "descripcion"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            maxlength: "500",
+                            placeholder:
+                              "Ej : Fabricación de soportes porta sensor"
+                          },
+                          domProps: { value: _vm.descripcion },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.descripcion = $event.target.value
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-2" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.cantidad,
+                              expression: "cantidad"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Ej : 5",
+                            maxlength: "9",
+                            onKeypress:
+                              "if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
+                          },
+                          domProps: { value: _vm.cantidad },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.cantidad = $event.target.value
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-3" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.precio_unidad,
+                              expression: "precio_unidad"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Ej : $ 40.000",
+                            maxlength: "9",
+                            onKeypress:
+                              "if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
+                          },
+                          domProps: { value: _vm.precio_unidad },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.precio_unidad = $event.target.value
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-2" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.agregarDetalle()
+                              }
+                            }
+                          },
+                          [_vm._v("Agregar")]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c("div", { staticClass: "table-responsive col-md-12" }, [
+                        _c(
+                          "table",
+                          {
+                            staticClass: "table align-items-center table-flush"
+                          },
+                          [
+                            _vm._m(4),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.detalles, function(det) {
+                                return _c("tr", { key: det.posicion_array }, [
+                                  _c(
+                                    "td",
+                                    { staticClass: "text-left text-uppercase" },
+                                    [
+                                      _c("small", {
+                                        domProps: {
+                                          textContent: _vm._s(det.descripcion)
+                                        }
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    { staticClass: "text-left text-uppercase" },
+                                    [
+                                      _c("small", {
+                                        domProps: {
+                                          textContent: _vm._s(det.cantidad)
+                                        }
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    { staticClass: "text-left text-uppercase" },
+                                    [
+                                      _vm._v(
+                                        "$" +
+                                          _vm._s(
+                                            _vm._f("currency")(
+                                              det.precio_unidad
+                                            )
+                                          )
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    { staticClass: "text-left text-uppercase" },
+                                    [
+                                      _vm._v(
+                                        "$" +
+                                          _vm._s(
+                                            _vm._f("currency")(det.valores)
+                                          )
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-right" }, [
+                                    _c("div", { staticClass: "dropdown" }, [
+                                      _vm._m(5, true),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "dropdown-menu dropdown-menu-right dropdown-menu-arrow"
+                                        },
+                                        [
+                                          _c(
+                                            "a",
+                                            {
+                                              staticClass: "dropdown-item",
+                                              on: {
+                                                click: function($event) {
+                                                  $event.preventDefault()
+                                                  return _vm.eliminarDetalle(
+                                                    det
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [_vm._v("Eliminar")]
+                                          )
+                                        ]
+                                      )
+                                    ])
+                                  ])
+                                ])
+                              }),
+                              0
+                            )
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("h4", { staticClass: "text-primary" }, [
+                      _vm._v("Condiciones")
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Forma de Pago :")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.forma_de_pago,
+                              expression: "forma_de_pago"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder:
+                              "Ej : 30 días depósito bancario, factura contra entrega"
+                          },
+                          domProps: { value: _vm.forma_de_pago },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.forma_de_pago = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Plazo de Entrega :")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.plazo_entrega,
+                              expression: "plazo_entrega"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Ej : 1 día / hábil siguiente"
+                          },
+                          domProps: { value: _vm.plazo_entrega },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.plazo_entrega = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Validez Cotización :")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.validez_cotizacion,
+                              expression: "validez_cotizacion"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", placeholder: "Ej : 15 días" },
+                          domProps: { value: _vm.validez_cotizacion },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.validez_cotizacion = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Lugar de Entrega :")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.lugar_entrega,
+                              expression: "lugar_entrega"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Ej : Instalaciones IANSA"
+                          },
+                          domProps: { value: _vm.lugar_entrega },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.lugar_entrega = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.errorCotizacion,
+                            expression: "errorCotizacion"
+                          }
+                        ],
+                        staticClass: "form-group row div-error"
+                      },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "text-center text-error" },
+                          _vm._l(_vm.errorMostrarMsjCotizacion, function(
+                            error
+                          ) {
+                            return _c("div", {
+                              key: error,
+                              domProps: { textContent: _vm._s(error) }
+                            })
+                          }),
+                          0
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.cerrarModal()
+                      }
+                    }
+                  },
+                  [_vm._v("Cerrar")]
+                ),
+                _vm._v(" "),
+                _vm.cotizacionAccion == 1
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.registrarCotizacion()
+                          }
+                        }
+                      },
+                      [_vm._v("Guardar")]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.cotizacionAccion == 2
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.actualizarCotizacion()
+                          }
+                        }
+                      },
+                      [_vm._v("Actualizar")]
+                    )
+                  : _vm._e()
+              ])
+            ])
+          ]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "header-body" }, [
+      _c(
+        "a",
+        {
+          staticClass:
+            "h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
+        },
+        [_vm._v("Cotizador Sammi")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col" }, [
+        _c(
+          "div",
+          {
+            staticClass: "alert alert-default alert-dismissible fade show",
+            attrs: { role: "alert" }
+          },
+          [
+            _c("span", { staticClass: "alert-icon" }, [
+              _c("i", { staticClass: "ni ni-ruler-pencil" })
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "alert-text text-uppercase" }, [
+              _c("strong", [_vm._v("Cotizaciones")])
+            ])
+          ]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("N°")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Nombre Cliente")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Contacto Cliente")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("División")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Fecha")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "btn btn-sm btn-icon-only",
+        attrs: {
+          href: "#",
+          role: "button",
+          "data-toggle": "dropdown",
+          "aria-haspopup": "true",
+          "aria-expanded": "false"
+        }
+      },
+      [_c("i", { staticClass: "fas fa-ellipsis-v" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Descripcion")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Cant.")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Precio Unidad")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Valores")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "btn btn-sm btn-icon-only text-light",
+        attrs: {
+          href: "#",
+          role: "button",
+          "data-toggle": "dropdown",
+          "aria-haspopup": "true",
+          "aria-expanded": "false"
+        }
+      },
+      [_c("i", { staticClass: "fas fa-ellipsis-v" })]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Empresa.vue?vue&type=template&id=61c4fd6e&":
 /*!**********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Empresa.vue?vue&type=template&id=61c4fd6e& ***!
@@ -31799,44 +34086,6 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Comentario :")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.comentario,
-                              expression: "comentario"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            placeholder: "Ej : Entregar antes del 15/10/2020"
-                          },
-                          domProps: { value: _vm.comentario },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.comentario = $event.target.value
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
                         [_vm._v("Vehículo : ")]
                       ),
                       _vm._v(" "),
@@ -31896,6 +34145,44 @@ var render = function() {
                           ],
                           2
                         )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Comentario :")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.comentario,
+                              expression: "comentario"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Ej : Entregar antes del 15/10/2020"
+                          },
+                          domProps: { value: _vm.comentario },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.comentario = $event.target.value
+                            }
+                          }
+                        })
                       ])
                     ]),
                     _vm._v(" "),
@@ -32002,7 +34289,70 @@ var render = function() {
                     _c("br"),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group row" }, [
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-3" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.tipo,
+                                expression: "tipo"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            on: {
+                              change: [
+                                function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.tipo = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                },
+                                function($event) {
+                                  $event.preventDefault()
+                                }
+                              ]
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              { attrs: { value: "Mano de Obra Mecánica" } },
+                              [_vm._v("Mano de Obra Mecánica")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              { attrs: { value: "Mano de Obra Eléctrica" } },
+                              [_vm._v("Mano de Obra Eléctrica")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              { attrs: { value: "Ventas o Servicios" } },
+                              [_vm._v("Ventas o Servicios")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              { attrs: { value: "Repuestos o Insumos" } },
+                              [_vm._v("Repuestos o Insumos")]
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-5" }, [
                         _c("input", {
                           directives: [
                             {
@@ -32015,8 +34365,8 @@ var render = function() {
                           staticClass: "form-control",
                           attrs: {
                             type: "text",
-                            maxlength: "70",
-                            placeholder: "Ej : Pastillas de freno"
+                            maxlength: "500",
+                            placeholder: "Pastillas de freno"
                           },
                           domProps: { value: _vm.detalle },
                           on: {
@@ -32030,7 +34380,7 @@ var render = function() {
                         })
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-3" }, [
+                      _c("div", { staticClass: "col-md-2" }, [
                         _c("input", {
                           directives: [
                             {
@@ -32043,7 +34393,7 @@ var render = function() {
                           staticClass: "form-control",
                           attrs: {
                             type: "text",
-                            placeholder: "Ej : $ 40.000",
+                            placeholder: "$ 40.000",
                             maxlength: "9",
                             onKeypress:
                               "if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
@@ -32060,7 +34410,7 @@ var render = function() {
                         })
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-3" }, [
+                      _c("div", { staticClass: "col-md-2" }, [
                         _c(
                           "button",
                           {
@@ -32091,6 +34441,18 @@ var render = function() {
                               "tbody",
                               _vm._l(_vm.detalles, function(det) {
                                 return _c("tr", { key: det.posicion_array }, [
+                                  _c(
+                                    "td",
+                                    { staticClass: "text-left text-uppercase" },
+                                    [
+                                      _c("small", {
+                                        domProps: {
+                                          textContent: _vm._s(det.tipo)
+                                        }
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
                                   _c(
                                     "td",
                                     { staticClass: "text-left text-uppercase" },
@@ -32326,6 +34688,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", { staticClass: "thead-light" }, [
       _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Categoría")]),
+        _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Servicio")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Valor Neto")]),
@@ -46257,6 +48621,7 @@ Vue.component('compras-component', __webpack_require__(/*! ./components/Compra.v
 Vue.component('vehiculos-component', __webpack_require__(/*! ./components/Vehiculo.vue */ "./resources/js/components/Vehiculo.vue")["default"]);
 Vue.component('tipos-vehiculos-component', __webpack_require__(/*! ./components/TipoVehiculo.vue */ "./resources/js/components/TipoVehiculo.vue")["default"]);
 Vue.component('taller-component', __webpack_require__(/*! ./components/Taller.vue */ "./resources/js/components/Taller.vue")["default"]);
+Vue.component('cotizacion-component', __webpack_require__(/*! ./components/Cotizacion.vue */ "./resources/js/components/Cotizacion.vue")["default"]);
 var app = new Vue({
   el: '#app',
   data: {
@@ -46473,6 +48838,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Compra_vue_vue_type_template_id_6433f4a9___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Compra_vue_vue_type_template_id_6433f4a9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Cotizacion.vue":
+/*!************************************************!*\
+  !*** ./resources/js/components/Cotizacion.vue ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Cotizacion_vue_vue_type_template_id_18935db8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Cotizacion.vue?vue&type=template&id=18935db8& */ "./resources/js/components/Cotizacion.vue?vue&type=template&id=18935db8&");
+/* harmony import */ var _Cotizacion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Cotizacion.vue?vue&type=script&lang=js& */ "./resources/js/components/Cotizacion.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Cotizacion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Cotizacion_vue_vue_type_template_id_18935db8___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Cotizacion_vue_vue_type_template_id_18935db8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Cotizacion.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Cotizacion.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/Cotizacion.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Cotizacion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Cotizacion.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Cotizacion.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Cotizacion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Cotizacion.vue?vue&type=template&id=18935db8&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/Cotizacion.vue?vue&type=template&id=18935db8& ***!
+  \*******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cotizacion_vue_vue_type_template_id_18935db8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Cotizacion.vue?vue&type=template&id=18935db8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Cotizacion.vue?vue&type=template&id=18935db8&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cotizacion_vue_vue_type_template_id_18935db8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cotizacion_vue_vue_type_template_id_18935db8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

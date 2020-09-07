@@ -15,6 +15,7 @@ Vue.component('compras-component', require('./components/Compra.vue').default);
 Vue.component('vehiculos-component', require('./components/Vehiculo.vue').default);
 Vue.component('tipos-vehiculos-component', require('./components/TipoVehiculo.vue').default);
 Vue.component('taller-component', require('./components/Taller.vue').default);
+Vue.component('cotizacion-component', require('./components/Cotizacion.vue').default);
 
 
 const app = new Vue({

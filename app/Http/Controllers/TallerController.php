@@ -71,6 +71,7 @@ class TallerController extends Controller
             $detalle->servicio = $d['servicio'];
             $detalle->valor_neto = $d['detalle_neto'];
             $detalle->valor_total = $d['detalle_neto'] * 1.19;
+            $detalle->tipo = $d['tipo'];
             $detalle->save();
         }
 
@@ -79,6 +80,7 @@ class TallerController extends Controller
 
     public function update(Request $request)
     {
+        date_default_timezone_set('America/Santiago');
         // Buscar Servicio
         $servicio = Taller::where('id', $request->id)->firstOrFail();
         // Actualizar Servicio
@@ -101,6 +103,7 @@ class TallerController extends Controller
             $detalle->servicio = $d['servicio'];
             $detalle->valor_neto = $d['detalle_neto'];
             $detalle->valor_total = $d['detalle_neto'] * 1.19;
+            $detalle->tipo = $d['tipo'];
             $detalle->save();
         }
     }

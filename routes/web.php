@@ -111,6 +111,13 @@ Route::group(['middleware'=>['auth']],function(){
 
 		Route::get('/todoslostiposdevehiculos', 'TipoVehiculoController@getAllTiposVehiculos');
 		Route::get('/todoslosvehiculos', 'TallerController@getAllVehiculos');
+
+		Route::get('/cotizacion', 'CotizacionController@index');
+		Route::post('/cotizacion/registrar', 'CotizacionController@store');
+		Route::put('/cotizacion/actualizar', 'CotizacionController@update');
+		Route::put('/cotizacion/eliminar', 'CotizacionController@eliminar');
+		Route::put('/cotizacion/activar', 'CotizacionController@activar');
+		Route::get('/detallesporcotizacion/{codigo}', 'CotizacionController@DetallesPorCotizacion');
 		
 
     });

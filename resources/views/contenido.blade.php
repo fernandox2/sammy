@@ -38,6 +38,10 @@
     <taller-component></taller-component>
 </template>
 
+<template v-if="menu==9">
+    <cotizacion-component></cotizacion-component>
+</template>
+
 @endsection
 
 @push('js')

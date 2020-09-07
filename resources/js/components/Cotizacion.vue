@@ -5,7 +5,7 @@
       <div class="header-body">
         <a
           class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
-        >Taller Mecánico</a>
+        >Cotizador Sammi</a>
       </div>
 
       <!-- Table -->
@@ -16,19 +16,19 @@
                         <div class="row">
           <div class="col">
               <div class="alert alert-default alert-dismissible fade show" role="alert">
-                <span class="alert-icon"><i class="ni ni-settings"></i></span>
-                <span class="alert-text text-uppercase"><strong>Taller Mecánico</strong></span>
+                <span class="alert-icon"><i class="ni ni-ruler-pencil"></i></span>
+                <span class="alert-text text-uppercase"><strong>Cotizaciones</strong></span>
               </div>
           </div>
         </div>
               <button
-                @click="abrirModal('taller','registrar')"
+                @click="abrirModal('cotizacion','registrar')"
                 type="button"
                 class="btn btn-success float-left"
-              >Nuevo Ingreso</button>
+              >Nueva Cotizacion</button>
 
               <input
-                v-on:change="listarTaller(1,buscar)"
+                v-on:change="listarCotizacion(1,buscar)"
                 type="text"
                 v-model="buscar"
                 class="form-control float-right"
@@ -43,21 +43,21 @@
                 <thead class="thead-light">
                   <tr>
                     <th scope="col">N°</th>
-                    <th scope="col">Patente</th>
-                    <th scope="col">Comentario</th>
-                    <th scope="col">Propietario</th>
+                    <th scope="col">Nombre Cliente</th>
+                    <th scope="col">Contacto Cliente</th>
+                    <th scope="col">División</th>
                     <th scope="col">Fecha</th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="taller in arrayTaller" :key="taller.id">
+                  <tr v-for="cotizacion in arrayCotizacion" :key="cotizacion.id">
 
-                    <td class="text-left text-uppercase"><small v-text="taller.id"></small></td>
-                    <td class="text-left text-uppercase"><small v-text="taller.patente"></small></td>
-                    <td class="text-left text-uppercase"><small v-text="taller.comentario"></small></td>
-                    <td class="text-left text-uppercase"><small v-text="taller.propietario"></small></td>
-                    <td class="text-left text-uppercase"><small v-text="taller.created_at"></small></td>
+                    <td class="text-left text-uppercase"><small v-text="cotizacion.id"></small></td>
+                    <td class="text-left text-uppercase"><small v-text="cotizacion.nombre_cliente"></small></td>
+                    <td class="text-left text-uppercase"><small v-text="cotizacion.contacto_cliente"></small></td>
+                    <td class="text-left text-uppercase"><small v-text="cotizacion.tipo"></small></td>
+                    <td class="text-left text-uppercase"><small v-text="cotizacion.created_at"></small></td>
                     <td class="text-right">
                       <div class="dropdown">
                         <a
@@ -74,17 +74,17 @@
                           <a
                             style="cursor:pointer;"
                             class="dropdown-item"
-                            @click.prevent="CrearPDF(taller)"
+                            @click.prevent="CrearPDF(cotizacion)"
                           >Generar PDF</a>
                           <a
                             style="cursor:pointer;"
                             class="dropdown-item"
-                            @click.prevent="abrirModal('taller','actualizar',taller)"
+                            @click.prevent="abrirModal('cotizacion','actualizar',cotizacion)"
                           >Modificar</a>
                           <a
                           style="cursor:pointer;"
                             class="dropdown-item"
-                            @click.prevent="eliminarTaller(taller.id)"
+                            @click.prevent="eliminarCotizacion(cotizacion.id)"
                           >Eliminar</a>
                         </div>
                       </div>
@@ -157,36 +157,47 @@
           <div class="modal-body">
             <form action method="post" enctype="multipart/form-data" class="form-horizontal">
 
-            <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Vehículo : </label>
-                <div class="col-md-9">
-                  <select v-model="vehiculo" class="form-control" v-on:change.prevent="">
-                              <option value="0">Seleccione una patente</option>
-                              <option v-for="option in vehiculos" v-bind:value="option.id">
-                                  {{ option.patente }}
-                              </option>
-                    </select>
+                <div class="form-group row">
+                    <label class="col-md-3 form-control-label" for="text-input">Señor(es) :</label>
+                    <div class="col-md-9">
+                        <input type="text" v-model="nombre_cliente" class="form-control" placeholder="Ej : IANSAGRO S.A"/>
+                    </div>
                 </div>
-              </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 form-control-label" for="text-input">Rut :</label>
+                    <div class="col-md-9">
+                        <input type="text" v-model="rut_cliente" class="form-control" placeholder="Ej : 96.772.810-1"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 form-control-label" for="text-input">Dirección :</label>
+                    <div class="col-md-9">
+                        <input type="text" v-model="direccion_cliente" class="form-control" placeholder="Ej : Cocharcas Km"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 form-control-label" for="text-input">Atención Sr :</label>
+                    <div class="col-md-9">
+                        <input type="text" v-model="contacto_cliente" class="form-control" placeholder="Ej : Yurian Jiménez"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 form-control-label" for="text-input">Comentario :</label>
+                    <div class="col-md-9">
+                        <input type="text" v-model="comentario" class="form-control" placeholder="Ej : Visto los requerimientos en terreno ..."/>
+                    </div>
+                </div>
 
               <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Comentario :</label>
+                <label class="col-md-3 form-control-label" for="text-input">División :</label>
                 <div class="col-md-9">
-                  <input
-                    type="text"
-                    v-model="comentario"
-                    class="form-control"
-                    placeholder="Ej : Entregar antes del 15/10/2020"
-                  />
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Estado</label>
-                <div class="col-md-9">
-                  <select v-model="estado" class="form-control" v-on:change.prevent="">
-                              <option value="En curso">En curso</option>
-                              <option value="Terminada">Terminada</option>
+                  <select v-model="tipo" class="form-control" v-on:change.prevent="">
+                              <option value="Maestranza">Maestranza</option>
+                              <option value="Mueblería">Mueblería</option>
                     </select>
                 </div>
               </div>
@@ -210,34 +221,35 @@
               <br>
               
               <div class="form-group row">
-                             
-
-                <div class="col-md-3">
-                  <select v-model="tipo" class="form-control" v-on:change.prevent="">
-                              <option value="Mano de Obra Mecánica">Mano de Obra Mecánica</option>
-                              <option value="Mano de Obra Eléctrica">Mano de Obra Eléctrica</option>
-                              <option value="Ventas o Servicios">Ventas o Servicios</option>
-                              <option value="Repuestos o Insumos">Repuestos o Insumos</option>
-                    </select>
-                </div>
-
-
+                
+               
                 <div class="col-md-5">
                     <input
                     type="text"
                     maxlength="500"
-                    v-model="detalle"
+                    v-model="descripcion"
                     class="form-control"
-                    placeholder="Pastillas de freno"
+                    placeholder="Ej : Fabricación de soportes porta sensor"
                   />
                 </div>
-                
+
                 <div class="col-md-2">
                     <input
                     type="text"
-                    v-model="detalle_neto"
+                    v-model="cantidad"
                     class="form-control"
-                    placeholder="$ 40.000"
+                    placeholder="Ej : 5"
+                    maxlength="9" 
+                    onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
+                  />
+                </div>
+                
+                <div class="col-md-3">
+                    <input
+                    type="text"
+                    v-model="precio_unidad"
+                    class="form-control"
+                    placeholder="Ej : $ 40.000"
                     maxlength="9" 
                     onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
                   />
@@ -254,17 +266,22 @@
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col">Categoría</th>
-                    <th scope="col">Servicio</th>
-                    <th scope="col">Valor Neto</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Cant.</th>
+                    <th scope="col">Precio Unidad</th>
+                    <th scope="col">Valores</th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
+
                 <tbody>
+
                   <tr v-for="det in detalles" :key="det.posicion_array">
-                    <td class="text-left text-uppercase"><small v-text="det.tipo"></small></td>
-                    <td class="text-left text-uppercase"><small v-text="det.servicio"></small></td>
-                    <td class="text-left text-uppercase">${{ det.detalle_neto | currency}}</td>
+                    
+                    <td class="text-left text-uppercase"><small v-text="det.descripcion"></small></td>
+                    <td class="text-left text-uppercase"><small v-text="det.cantidad"></small></td>
+                    <td class="text-left text-uppercase">${{ det.precio_unidad | currency}}</td>
+                    <td class="text-left text-uppercase">${{ det.valores | currency}}</td>
                     <td class="text-right">
                       <div class="dropdown">
                         <a
@@ -291,9 +308,41 @@
               </div>
               </div>
 
-              <div v-show="errorTaller" class="form-group row div-error">
+            <h4 class="text-primary">Condiciones</h4>
+              
+              <br>
+
+                <div class="form-group row">
+                    <label class="col-md-3 form-control-label" for="text-input">Forma de Pago :</label>
+                    <div class="col-md-9">
+                        <input type="text" v-model="forma_de_pago" class="form-control" placeholder="Ej : 30 días depósito bancario, factura contra entrega"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 form-control-label" for="text-input">Plazo de Entrega :</label>
+                    <div class="col-md-9">
+                        <input type="text" v-model="plazo_entrega" class="form-control" placeholder="Ej : 1 día / hábil siguiente"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 form-control-label" for="text-input">Validez Cotización :</label>
+                    <div class="col-md-9">
+                        <input type="text" v-model="validez_cotizacion" class="form-control" placeholder="Ej : 15 días"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 form-control-label" for="text-input">Lugar de Entrega :</label>
+                    <div class="col-md-9">
+                        <input type="text" v-model="lugar_entrega" class="form-control" placeholder="Ej : Instalaciones IANSA"/>
+                    </div>
+                </div>
+
+              <div v-show="errorCotizacion" class="form-group row div-error">
                 <div class="text-center text-error">
-                  <div v-for="error in errorMostrarMsjTaller" :key="error" v-text="error"></div>
+                  <div v-for="error in errorMostrarMsjCotizacion" :key="error" v-text="error"></div>
                 </div>
               </div>
 
@@ -304,15 +353,15 @@
             <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
             <button
               type="button"
-              v-if="tallerAccion==1"
+              v-if="cotizacionAccion==1"
               class="btn btn-primary"
-              @click="registrarTaller()"
+              @click="registrarCotizacion()"
             >Guardar</button>
             <button
               type="button"
-              v-if="tallerAccion==2"
+              v-if="cotizacionAccion==2"
               class="btn btn-primary"
-              @click="actualizarTaller()"
+              @click="actualizarCotizacion()"
             >Actualizar</button>
           </div>
         </div>
@@ -340,23 +389,31 @@ export default {
   data() {
     return {
       id: 0,
-      estado:"En curso",
-      vehiculo:0,
-      tipo:"Mano de Obra Mecánica",
-      detalle:"",
+      item: 0,
+      descripcion:"",
+      nombre_cliente:"",
+      rut_cliente:"",
+      direccion_cliente:"",
+      contacto_cliente:"",
+      cantidad:"",
+      tipo:"Maestranza",
       valor_neto:0,
       valor_total:0,
-      detalle_neto:"",
-      patente_vehiculo:"",
+      precio_unidad:"",
+      valores:0,
       comentario:"",
+      forma_de_pago:"",
+      plazo_entrega:"",
+      lugar_entrega:"",
+      validez_cotizacion:"",
       vehiculos:[],
-      arrayTaller:[],
+      arrayCotizacion:[],
       detalles:[],
       modal: 0,
       tituloModal: "",
-      tallerAccion: 0,
-      errorTaller: 0,
-      errorMostrarMsjTaller: [],
+      cotizacionAccion: 0,
+      errorCotizacion: 0,
+      errorMostrarMsjCotizacion: [],
       pagination: {
         total: 0,
         current_page: 0,
@@ -366,7 +423,7 @@ export default {
         to: 0
       },
       offset: 3,
-      criterio: "patente",
+      criterio: "id",
       buscar: ""
     };
   },
@@ -400,10 +457,10 @@ export default {
   },
   methods: {
 
-    listarTaller(page, buscar, criterio) {
+    listarCotizacion(page, buscar, criterio) {
       let me = this;
       var url =
-        "/taller?page=" +
+        "/cotizacion?page=" +
         page +
         "&buscar=" +
         buscar +
@@ -413,7 +470,7 @@ export default {
         .get(url)
         .then(function(response) {
           var respuesta = response.data;
-          me.arrayTaller = respuesta.servicios.data;
+          me.arrayCotizacion = respuesta.cotizaciones.data;
           me.pagination = respuesta.pagination;
         })
         .catch(function(error) {
@@ -422,21 +479,25 @@ export default {
     },
   agregarDetalle(){
     let me = this;
-    if (me.detalle != "")
+    if (me.descripcion != "")
     {
       // Agregar al array
       me.detalles.push ({
-        servicio: me.detalle,
-        detalle_neto: me.detalle_neto,
-        tipo: me.tipo
+        descripcion: me.descripcion,
+        precio_unidad: me.precio_unidad,
+        cantidad: parseInt(me.cantidad),
+        valores: parseInt(me.cantidad) * parseInt(me.precio_unidad)
+        
       });
       // Actualizar el Valor Neto del Servicio
-      me.valor_neto = parseInt(me.valor_neto) + parseInt(me.detalle_neto);
+      me.valor_neto = parseInt(me.valor_neto) + (parseInt(me.cantidad) * parseInt(me.precio_unidad));
+
       // Actualizar el Valor Total del Servicio
       me.valor_total = parseInt(me.valor_neto) * 1.19;
       // Limpiar los inputs
-      me.detalle_neto = "";
-      me.detalle = "";
+      me.precio_unidad = "";
+      me.descripcion = "";
+      me.cantidad = "";
     }
   },
   eliminarDetalle(item){
@@ -445,38 +506,46 @@ export default {
     if ( i !== -1 ) {
         me.detalles.splice(i,1);
         // Actualizar el Valor Neto del Servicio
-        me.valor_neto = parseInt(me.valor_neto) - parseInt(item.detalle_neto);
+        me.valor_neto = parseInt(me.valor_neto) - parseInt(item.valores);
         // Actualizar el Valor Total del Servicio
         me.valor_total = parseInt(me.valor_neto) * 1.19;
     }
-    
+   
   },
     cambiarPagina(page, buscar, criterio) {
       let me = this;
       //Actualiza la página actual
       me.pagination.current_page = page;
       //Envia la petición para visualizar la data de esa página
-      me.listarTaller(page, buscar, criterio);
+      me.listarCotizacion(page, buscar, criterio);
     },
-    registrarTaller() {
-      if (this.validarTaller()) {
+
+    registrarCotizacion() {
+      if (this.validarCotizacion()) {
         return;
       }
 
       let me = this;
 
       axios
-        .post("/taller/registrar", {
+        .post("/cotizacion/registrar", {
+          nombre_cliente: me.nombre_cliente,
+          tipo:me.tipo,
+          rut_cliente: me.rut_cliente,
+          direccion_cliente: me.direccion_cliente,
+          contacto_cliente: me.contacto_cliente,
+          forma_de_pago: me.forma_de_pago,
+          plazo_entrega: me.plazo_entrega,
+          validez_cotizacion: me.validez_cotizacion,
+          lugar_entrega: me.lugar_entrega,
           valor_neto: me.valor_neto,
           valor_total: me.valor_total,
           comentario: me.comentario,
-          estado: me.estado,
-          vehiculo: me.vehiculo,
           detalles: me.detalles
         })
         .then(function(response) {
           me.cerrarModal();
-          me.listarTaller(1, "", "id");
+          me.listarCotizacion(1, "", "id");
           Swal.fire({
             icon: "success",
             title: "Excelente ...",
@@ -487,26 +556,33 @@ export default {
           console.log(error);
         });
     },
-    actualizarTaller() {
-      if (this.validarTaller()) {
+    actualizarCotizacion() {
+      if (this.validarCotizacion()) {
         return;
       }
 
       let me = this;
 
       axios
-        .put("/taller/actualizar", {
+        .put("/cotizacion/actualizar", {
+          nombre_cliente: me.nombre_cliente,
+          tipo:me.tipo,
+          rut_cliente: me.rut_cliente,
+          direccion_cliente: me.direccion_cliente,
+          contacto_cliente: me.contacto_cliente,
+          forma_de_pago: me.forma_de_pago,
+          plazo_entrega: me.plazo_entrega,
+          validez_cotizacion: me.validez_cotizacion,
+          lugar_entrega: me.lugar_entrega,
           valor_neto: me.valor_neto,
           valor_total: me.valor_total,
           comentario: me.comentario,
-          estado: me.estado,
-          vehiculo: me.vehiculo,
           detalles: me.detalles,
           id: me.id
         })
         .then(function(response) {
           me.cerrarModal();
-          me.listarTaller(1, "", "id");
+          me.listarCotizacion(1, "", "id");
           Swal.fire({
             icon: "success",
             title: "Excelente ...",
@@ -517,7 +593,7 @@ export default {
           console.log(error);
         });
     },
-    eliminarTaller(id) {
+    eliminarCotizacion(id) {
       let me = this;
 
       Swal.fire({
@@ -530,11 +606,11 @@ export default {
         confirmButtonText: "Sí, Bórralo"
       }).then(result => {
         if (result.value) {
-          axios.put("/taller/eliminar", {
+          axios.put("/cotizacion/eliminar", {
               id: id
             })
             .then(function(response) {
-              me.listarTaller(1, "", "id");
+              me.listarCotizacion(1, "", "id");
               Swal.fire(
                 "Borrado!",
                 "El registro fue eliminado del sistema.",
@@ -548,12 +624,13 @@ export default {
       });
     },
 
-    CrearPDF(servicio){
-      axios.get('/detallesporservicio/'+ servicio.id).then(response => { this.generarPDF(servicio,response.data); }).catch(errors => { console.log(errors); });
+    CrearPDF(cotizacion){
+      axios.get('/detallesporcotizacion/'+ cotizacion.id).then(response => { this.generarPDF(cotizacion,response.data); }).catch(errors => { console.log(errors); });
       
     },
 
-   isNull(texto){
+
+    isNull(texto){
       if (texto === null){
         return "";
       }else{
@@ -561,9 +638,9 @@ export default {
       }
     },
 
-    generarPDF(servicio,detalles){
+    generarPDF(cotizacion,detalles){
        // Nombre del Documento
-      let pdfName = 'Orden_de_Servicio_' + servicio.id; 
+      let pdfName = 'Cotizacion_' + cotizacion.id; 
       // Dar Tamaño al PDF
       var doc = new jsPDF('p','pt','letter');
       // Agregar Logo Principal
@@ -573,210 +650,119 @@ export default {
       doc.setFontSize(12);
       doc.text("SAMMI LTDA", 160, 60);
       doc.setFontSize(10);
-      doc.text("Servicio Automotriz" , 160, 75);
+      if (cotizacion.tipo == "Maestranza"){
+        doc.text("Maestranza y Mantención Industrial" , 160, 75);
+      }else{
+        doc.text("Muebles de Madera", 160, 75);
+      }
       doc.text("Rut 76.783.908-1", 160, 90);
       doc.text("Vicuña Mackenna N° 1812 - San Carlos, Ñuble", 160, 105);
       doc.text("Teléfono: +56988054341", 160, 120);
-      var asisepaga = new Image();
-      asisepaga.src = 'img/formasdepago.png';
-      doc.addImage(asisepaga, 'PNG', 500, 40,50,50);
+
       // Datos del Cliente - Verificar Blancos
-      var nombre_propietario = this.isNull(servicio.propietario);
-      var patente = this.isNull(servicio.patente);
-      var marca = this.isNull(servicio.marca);
-      var modelo = this.isNull(servicio.modelo);
+      var nombre_cliente = this.isNull(cotizacion.nombre_cliente);
+      var rut_cliente = this.isNull(cotizacion.rut_cliente);
+      var direccion_cliente = this.isNull(cotizacion.direccion_cliente);
+      var contacto_cliente = this.isNull(cotizacion.contacto_cliente);
       // Imprimir Datos Cliente
-      doc.text("Cliente : " + nombre_propietario.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))), 40, 150);
-      doc.text("Patente : " + patente.trim().toUpperCase(), 40, 165);
-      doc.text("Marca : " + marca.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))), 40, 180);
-      doc.text("Modelo  : " + modelo.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))), 40, 195);
-      doc.text("Fecha : " + servicio.created_at, 40, 210);
+      doc.text("Señor(es) : " + nombre_cliente.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))), 40, 150);
+      doc.text("Rut : " + rut_cliente.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))), 40, 165);
+      doc.text("Dirección : " + direccion_cliente.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))), 40, 180);
+      doc.text("Atención  : " + contacto_cliente.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))), 40, 195);
       doc.setFontSize(12);
-      doc.text("Orden de Servicio N° " + servicio.id, 425, 150);
+      doc.text("Cotización N° " + cotizacion.id, 450, 150);
       doc.setFontSize(10);
-      
+      doc.text("Fecha : " + cotizacion.created_at, 40, 220);
       
       // Comienza Tabla de Deatlles
       
       // Titulo Detalles
       doc.setFontSize(11);
-      doc.text("Descripción", 40, 250);
+      doc.text("Item", 40, 250);
+      doc.text("Descripción", 80, 250);
+      doc.text("Cant", 350, 250);
+      doc.text("Precio Unidad", 400, 250);
       doc.text("Valores", 500, 250);
       doc.text('___________________________________________________________________________________', 40, 253);
       doc.setFontSize(10);
       
       // Crea Variable Contador de Lineas
-      var linea = 270;
+      var linea = 250;
 
-      //Impirmir Mano de Obra Mecánica
-      doc.setFontSize(11);
-      doc.text("Mano de Obra Mecánica", 40, linea);
-      doc.setFontSize(10);
-      // Variable Sub Total Mano de Obra Mecanica
-      var mom = 0;
       // Agregar Detalles
       detalles.forEach(element => {
-        if (element.tipo === "Mano de Obra Mecánica"){
-          linea = linea + 20;
-          var lines = doc.splitTextToSize(element.servicio.replace(/^\w/, (c) => c.toUpperCase()), 250);
-          doc.text(40, linea, lines, {maxWidth: 350, align: "justify"});
-          mom = mom + parseInt(element.valor_neto);
-          doc.text("$ " + new Intl.NumberFormat().format(element.valor_neto) , 500, linea);
-          // Verificar si es multi linea y saltar las lineas adecuadas
-          if (lines.length > 1){
-            linea = linea + (lines.length * 10);
-          } 
-          // Si llega a 600pt entonces agrega una nueva página    
-          if(linea > 600){
-            doc.addPage('letter', 'pt', 'p');
-            linea = 40;          
-          }   
-        }       
+        linea = linea + 20;
+        doc.text(String(element.item), 45, linea);
+        var lines = doc.splitTextToSize(element.descripcion.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))), 250);
+        doc.text(82, linea, lines, {maxWidth: 258, align: "justify"});   
+        doc.text(String(element.cantidad), 355, linea);
+        doc.text("$ " + new Intl.NumberFormat().format(element.precio_unidad) , 400, linea);
+        doc.text("$ " + new Intl.NumberFormat().format(element.valores) , 500, linea);
+        // Verificar si es multi linea y saltar las lineas adecuadas
+        if (lines.length > 1){
+          linea = linea + (lines.length * 10);
+        } 
+        doc.text('____________________________________________________________________________________________', 40, linea + 5);
+        // Si llega a 600pt entonces agrega una nueva página    
+        if(linea > 600){
+          doc.addPage('letter', 'pt', 'p');
+          linea = 40;          
+        }   
       });
-      doc.text('____________________________________________________________________________________________', 40, linea + 5);
-      linea = linea + 20;
-      doc.text("Sub Total (1) : " , 430, linea);
-      doc.text("$ " + new Intl.NumberFormat().format(mom) , 500, linea);
-      
-      //Impirmir Mano de Obra Eléctrica
-      linea = linea + 20;
-      doc.setFontSize(11);
-      doc.text("Mano de Obra Eléctrica", 40, linea);
-      doc.setFontSize(10);
-      var moe = 0;
-      // Agregar Detalles
-      detalles.forEach(element => {
-        if (element.tipo === "Mano de Obra Eléctrica"){
-         linea = linea + 20;
-          var lines = doc.splitTextToSize(element.servicio.replace(/^\w/, (c) => c.toUpperCase()), 250);
-          doc.text(40, linea, lines, {maxWidth: 350, align: "justify"});
-          moe = moe + parseInt(element.valor_neto);   
-          doc.text("$ " + new Intl.NumberFormat().format(element.valor_neto) , 500, linea);
-          // Verificar si es multi linea y saltar las lineas adecuadas
-          if (lines.length > 1){
-            linea = linea + (lines.length * 10);
-          } 
-          // Si llega a 600pt entonces agrega una nueva página    
-          if(linea > 600){
-            doc.addPage('letter', 'pt', 'p');
-            linea = 40;          
-          }   
-        }       
-      });
-      doc.text('____________________________________________________________________________________________', 40, linea + 5);
-      linea = linea + 20;
-      doc.text("Sub Total (2) : " , 430, linea);
-      doc.text("$ " + new Intl.NumberFormat().format(moe) , 500, linea);      
-      
-      
-      //Impirmir Ventas o Servicios
-      linea = linea + 20;
-      doc.setFontSize(11);
-      doc.text("Ventas o Servicios", 40, linea);
-      doc.setFontSize(10);
-      var vos = 0;
-      // Agregar Detalles
-      detalles.forEach(element => {
-        if (element.tipo === "Ventas o Servicios"){
-          linea = linea + 20;
-          var lines = doc.splitTextToSize(element.servicio.replace(/^\w/, (c) => c.toUpperCase()), 250);
-          doc.text(40, linea, lines, {maxWidth: 350, align: "justify"});
-          vos = vos + parseInt(element.valor_neto);    
-          doc.text("$ " + new Intl.NumberFormat().format(element.valor_neto) , 500, linea);
-          // Verificar si es multi linea y saltar las lineas adecuadas
-          if (lines.length > 1){
-            linea = linea + (lines.length * 10);
-          } 
-          // Si llega a 600pt entonces agrega una nueva página    
-          if(linea > 600){
-            doc.addPage('letter', 'pt', 'p');
-            linea = 40;          
-          }   
-        }       
-      });
-      doc.text('____________________________________________________________________________________________', 40, linea + 5);
-      linea = linea + 20;
-      doc.text("Sub Total (3) : " , 430, linea);
-      doc.text("$ " + new Intl.NumberFormat().format(vos) , 500, linea);              
-         
-      //Impirmir Repuestos o Insumos
-      linea = linea + 20;
-      doc.setFontSize(11);
-      doc.text("Repuestos o Insumos", 40, linea);
-      doc.setFontSize(10);
-      var roi = 0;
-      // Agregar Detalles
-      detalles.forEach(element => {
-        if (element.tipo === "Repuestos o Insumos"){
-         linea = linea + 20;
-          var lines = doc.splitTextToSize(element.servicio.replace(/^\w/, (c) => c.toUpperCase()), 250);
-          doc.text(40, linea, lines, {maxWidth: 350, align: "justify"});   
-          roi = roi + parseInt(element.valor_neto);
-          doc.text("$ " + new Intl.NumberFormat().format(element.valor_neto) , 500, linea);
-          // Verificar si es multi linea y saltar las lineas adecuadas
-          if (lines.length > 1){
-            linea = linea + (lines.length * 10);
-          } 
-          // Si llega a 600pt entonces agrega una nueva página    
-          if(linea > 600){
-            doc.addPage('letter', 'pt', 'p');
-            linea = 40;          
-          }   
-        }       
-      });
-      doc.text('____________________________________________________________________________________________', 40, linea + 5);
-      linea = linea + 20;
-      doc.text("Sub Total (4) : " , 430, linea);
-      doc.text("$ " + new Intl.NumberFormat().format(roi) , 500, linea);              
-      linea = linea + 20;
 
-      //Imprimir Totales
       linea = linea + 20;
       doc.text("Total Neto : " , 430, linea);
-      doc.text("$ " + new Intl.NumberFormat().format(servicio.valor_neto) , 500, linea);
+      doc.text("$ " + new Intl.NumberFormat().format(cotizacion.valor_neto) , 500, linea);
       linea = linea + 20;
       doc.text("I.V.A (%) : " , 430, linea);
-      doc.text("$ " + new Intl.NumberFormat().format(servicio.valor_total - servicio.valor_neto) , 500, linea);
+      doc.text("$ " + new Intl.NumberFormat().format(cotizacion.valor_total - cotizacion.valor_neto) , 500, linea);
       linea = linea + 20;
       doc.text("A Pagar : " , 430, linea);
-      doc.text("$ " + new Intl.NumberFormat().format(servicio.valor_total) , 500, linea);
+      doc.text("$ " + new Intl.NumberFormat().format(cotizacion.valor_total) , 500, linea);
       linea = linea + 30;
       doc.text("Notas u Observaciones : " , 40, linea);
       linea = linea + 20;
-      var comentario = this.isNull(servicio.comentario);
+      var comentario = this.isNull(cotizacion.comentario);
       var lines = doc.splitTextToSize(comentario.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))), 250);
       doc.text(40, linea, lines, {maxWidth: 500, align: "justify"}) 
       if (lines.length > 1){
         linea = linea + (lines.length * 5);
-      }
+      }     
       linea = linea + 20;
-      doc.text("Estado : " , 40, linea);
-      doc.text(servicio.estado , 80, linea);   
-      linea = linea + 30;
-      var lines = doc.splitTextToSize("Formas de Pago : Depósito Bancario a nombre de SAMMI LTDA, Chequera Electrónica Banco Estado N° 517-7-044612-4, Rut : 76.783.908-1, Correo Electrónico : guillermo.sammi@gmail.com", 250);
-      doc.text(40, linea, lines, {maxWidth: 500, align: "justify"}) 
-      // generar el PDF
+      doc.text("Condiciones " , 40, linea);
+      linea = linea + 15;
+      var forma_de_pago = this.isNull(cotizacion.forma_de_pago);
+      doc.text("Forma de Pago : " + forma_de_pago.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))) , 40, linea);
+      linea = linea + 15;
+      var plazo_entrega = this.isNull(cotizacion.plazo_entrega);
+      doc.text("Plazo de Entrega : " + plazo_entrega.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))) , 40, linea);
+      linea = linea + 15;
+      var validez_cotizacion = this.isNull(cotizacion.validez_cotizacion);
+      doc.text("Validéz de la Cotización : " + validez_cotizacion.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))) , 40, linea);
+      linea = linea + 15;
+      var lugar_entrega = this.isNull(cotizacion.lugar_entrega);
+      doc.text("Lugar de Entrega : " + lugar_entrega.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))) , 40, linea);
       doc.save(pdfName + '.pdf');
     },
 
 
-    validarTaller() {
-      this.errorTaller = 0;
-      this.errorMostrarMsjTaller = [];
+    validarCotizacion() {
+      this.errorCotizacion = 0;
+      this.errorMostrarMsjCotizacion = [];
 
-      if (this.vehiculo==0 )
-        this.errorMostrarMsjTaller.push(
-          "Debe seleccionar un vehiculo al menos."
+      if (this.nombre_cliente==0 )
+        this.errorMostrarMsjCotizacion.push(
+          "Debe ingresar un cliente al cual cotizar."
         );
 
       if (this.detalles.length == 0)
-        this.errorMostrarMsjTaller.push(
-          "Debe agregar al menos un servicio o insumo."
+        this.errorMostrarMsjCotizacion.push(
+          "Debe agregar al menos un detalle a la cotización."
         );
 
-      if (this.errorMostrarMsjTaller.length) this.errorTaller = 1;
+      if (this.errorMostrarMsjCotizacion.length) this.errorCotizacion = 1;
 
-      return this.errorTaller;
+      return this.errorCotizacion;
     },
     cerrarModal() {
       this.modal = 0;
@@ -784,44 +770,60 @@ export default {
       this.comentario = "";
       this.valor_neto = 0;
       this.valor_total = 0;
-      this.vehiculo = 0;
+      this.nombre_cliente = 0;
       this.detalles = [];
-      this.estado = "En curso";
+      this.contacto_cliente = "";
+      this.rut_cliente = "";
+      this.direccion_cliente = "";
+      this.forma_de_pago = "";
+      this.plazo_entrega = "";
+      this.validez_cotizacion = "";
+      this.lugar_entrega = "";
+      this.tipo = "Maestranza";
     },
 
     abrirModal(modelo, accion, data = []) {
       switch (modelo) {
-        case "taller": {
+        case "cotizacion": {
           switch (accion) {
             case "registrar": {
               this.modal = 1;
-              this.tituloModal = "Nuevo Servicio";
-              this.patente = "";
-              this.marca = "";
-              this.motor = "";
-              this.modelo = "";
-              this.vin = "";
-              this.chasis = "";
-              this.nombre_propietario = "";
-              this.correo_propietario = "";
-              this.fono_propietario = "";
-              this.tallerAccion = 1;
+              this.tituloModal = "Nueva Cotización";
+              this.nombre_cliente = "";
+              this.rut_cliente = "";
+              this.direccion_cliente = "";
+              this.contacto_cliente = "";
+              this.comentario = "";
+              this.detalles = [];
+              this.valor_neto = 0;
+              this.valor_neto = 0;
+              this.forma_de_pago = "";
+              this.plazo_entrega = "";
+              this.validez_cotizacion = "";
+              this.lugar_entrega = "";
+              this.tipo = "Maestranza";
+              this.cotizacionAccion = 1;
               break;
             }
             case "actualizar": {
               this.modal = 1;
-              this.tituloModal = "Actualizar Servicio N° " + data["id"];
-              this.tallerAccion = 2;
+              this.tituloModal = "Actualizar Cotización N° " + data["id"];
+              this.cotizacionAccion = 2;
               this.id = data["id"];
               this.comentario = data["comentario"];
               this.valor_neto = data["valor_neto"];
               this.valor_total = data["valor_total"];
-              this.vehiculo = data["patente_vehiculo"];
-              this.estado = data["estado"];
-              this.detalles = data["detalles"];
+              this.nombre_cliente = data["nombre_cliente"];
+              this.rut_cliente = data["rut_cliente"];
+              this.direccion_cliente = data["direccion_cliente"];
+              this.contacto_cliente = data["contacto_cliente"];
+              this.forma_de_pago = data["forma_de_pago"];
+              this.plazo_entrega = data["plazo_entrega"];
+              this.validez_cotizacion = data["validez_cotizacion"];
+              this.tipo = data["tipo"];
+              this.lugar_entrega = data["lugar_entrega"];
               // Buscar Detalles del Servicio
-              axios.get('/detallesporservicio/'+ this.id).then(response => { this.detalles = response.data; }).catch(errors => { console.log(errors); })
-              
+              axios.get('/detallesporcotizacion/'+ this.id).then(response => { this.detalles = response.data; }).catch(errors => { console.log(errors); })
               break;
             }
           }
@@ -830,7 +832,7 @@ export default {
     }
   },
   mounted() {
-    this.listarTaller(1, this.buscar, this.criterio);
+    this.listarCotizacion(1, this.buscar, this.criterio);
 
   }
 };

@@ -84,7 +84,7 @@
                     </a>
                 </li>
 
-                <li @click.prevent="menu=1" class="nav-item">
+                <li @click.prevent="menu=9" class="nav-item">
                     <a class="nav-link" href="#">
                     <i class="ni ni-money-coins text-default"></i> {{ __('Cotizador') }}
                     </a>
