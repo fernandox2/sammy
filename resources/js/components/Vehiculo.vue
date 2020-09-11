@@ -25,7 +25,7 @@
                 v-model="buscar"
                 class="form-control float-right"
                 placeholder="Buscar Patente..."
-                style="max-width:300px;"
+                style="max-width:50%;"
               />
               
             </div>

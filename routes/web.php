@@ -23,6 +23,17 @@ Route::group(['middleware'=>['guest']],function(){
 
 Route::group(['middleware'=>['auth']],function(){
 
+	// Ruta Recaudación del Día en Mano de Obra Mecánica (MOM)
+	Route::get('/momdeldia', 'TallerController@momdeldia');
+	// Ruta Recaudación del Día en Mano de Obra Eléctrica (MOE)
+	Route::get('/moe', 'TallerController@moe');
+	// Ruta Recaudación del Mes de Ventas o Servicios (MOE)
+	Route::get('/vys', 'TallerController@vys');
+	//  Ruta Ingreso de Vehiculos del Día
+	Route::get('/ingresosaldia', 'TallerController@ingresosaldia');
+	// Ruta de Servicios por Fecha
+	Route::post('/serviciosporfecha', 'TallerController@serviciosporfecha');
+
 	Route::get('/empresadelusuario', 'EmpresaController@buscarempresalogin');
 	Route::get('/obtenerusuario', 'UserController@obtenerUsuarioSesion');
 	Route::get('/ventasdeldia', 'VentaController@ventasdeldia');
@@ -118,6 +129,12 @@ Route::group(['middleware'=>['auth']],function(){
 		Route::put('/cotizacion/eliminar', 'CotizacionController@eliminar');
 		Route::put('/cotizacion/activar', 'CotizacionController@activar');
 		Route::get('/detallesporcotizacion/{codigo}', 'CotizacionController@DetallesPorCotizacion');
+
+		Route::get('/usuario', 'UserController@index');
+		Route::post('/usuario/registrar', 'UserController@store');
+		Route::put('/usuario/actualizar', 'UserController@update');
+		Route::put('/usuario/eliminar', 'UserController@eliminar');
+		Route::get('/detallesporusuario/{codigo}', 'CotizacionController@DetallesPorCotizacion');
 		
 
     });

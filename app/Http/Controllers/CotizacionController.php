@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Cotizacion;
 use App\DetalleCotizacion;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 
 class CotizacionController extends Controller
@@ -120,9 +121,14 @@ class CotizacionController extends Controller
  
     public function eliminar(Request $request)
     {
-        
-        $servicio = Cotizacion::findOrFail($request->id);
-        $servicio->delete();
+        $rol =  Auth::user()->rol;
+
+        if ($rol == "Administrador"){
+            $servicio = Cotizacion::findOrFail($request->id);
+            $servicio->delete();
+        }
+
+
     }
 
 

@@ -6,7 +6,7 @@
         </button>
         <!-- Brand -->
         <a class="navbar-brand pt-0" href="{{ route('home') }}">
-            <img src="{{ asset('argon') }}/img/brand/sammy.jpg" class="navbar-brand-img" alt="...">
+            <img src="{{ asset('argon') }}/img/brand/sammi.jpg" class="navbar-brand-img" alt="...">
         </a>
         <!-- User -->
         <ul class="nav align-items-center d-md-none">
@@ -14,7 +14,7 @@
                 <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
-                        <img alt="Image placeholder" src="{{ asset('argon') }}/img/theme/team-1-800x800.jpg">
+                        <img alt="Image placeholder" src="{{ asset('argon') }}/img/theme/avatar.jpg">
                         </span>
                     </div>
                 </a>
@@ -54,7 +54,7 @@
                 <div class="row">
                     <div class="col-6 collapse-brand">
                         <a href="{{ route('home') }}">
-                            <img src="{{ asset('argon') }}/img/brand/blue.png">
+                            <img src="{{ asset('argon') }}/img/brand/sammi.jpg">
                         </a>
                     </div>
                     <div class="col-6 collapse-close">
@@ -65,49 +65,54 @@
                     </div>
                 </div>
             </div>
-            <!-- Form -->
-            <form class="mt-4 mb-3 d-md-none">
-                <div class="input-group input-group-rounded input-group-merge">
-                    <input type="search" class="form-control form-control-rounded form-control-prepended" placeholder="{{ __('Search') }}" aria-label="Search">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <span class="fa fa-search"></span>
-                        </div>
-                    </div>
-                </div>
-            </form>
+
             <!-- Navigation -->
             <ul class="navbar-nav">
+            @if(Auth::user()->rol == 'Administrador')
                 <li @click.prevent="menu=0" class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}">
-                        <i class="ni ni-tv-2 text-default"></i> {{ __('Panel') }}
+                        <i class="fas fa-tachometer-alt text-default"></i> {{ __(' Panel') }}
                     </a>
                 </li>
+            @endif
+            
 
+                @if(Auth::user()->rol == 'Trabajador' || Auth::user()->rol == 'Administrador')
+                    <li @click.prevent="menu=8" class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-wrench text-default"></i> {{ __(' Taller Mecánico') }}
+                        </a>
+                    </li>
+                @endif
+
+                @if(Auth::user()->rol == 'Trabajador' || Auth::user()->rol == 'Administrador')
                 <li @click.prevent="menu=9" class="nav-item">
                     <a class="nav-link" href="#">
-                    <i class="ni ni-money-coins text-default"></i> {{ __('Cotizador') }}
+                    <i class="fas fa-file-invoice-dollar text-default"></i> {{ __(' Cotizador') }}
                     </a>
                 </li>
+                @endif
+                @if(Auth::user()->rol == 'Trabajador' || Auth::user()->rol == 'Administrador')
                 <li @click.prevent="menu=7" class="nav-item">
                     <a class="nav-link" href="#">
-                        <i class="ni ni-bus-front-12 text-default"></i> {{ __('Vehiculos') }}
+                        <i class="fas fa-car text-default"></i> {{ __(' Vehiculos') }}
                     </a>
                 </li>
+                @endif
+                @if(Auth::user()->rol == 'Administrador')
                 <li @click.prevent="menu=6" class="nav-item">
                     <a class="nav-link" href="#">
-                        <i class="ni ni-ui-04 text-default"></i> {{ __('Tipo de Vehículos') }}
+                        <i class="fas fa-sitemap text-default"></i> {{ __(' Tipo de Vehículos') }}
                     </a>
                 </li>
-
-                    @if(Auth::user()->rol == 'Supervisor' || Auth::user()->rol == 'Administrador')
-
-                <li @click.prevent="menu=8" class="nav-item">
+                @endif
+                @if(Auth::user()->rol == 'Administrador')
+                <li @click.prevent="menu=11" class="nav-item">
                     <a class="nav-link" href="#">
-                        <i class="ni ni-settings text-default"></i> {{ __('Taller Mecánico') }}
+                        <i class="fas fa-users text-default"></i> {{ __(' Usuarios') }}
                     </a>
                 </li>
-                    @endif
+                @endif
                    
                  <!--   @if(Auth::user()->rol == 'Administrador')
                         <li @click.prevent="menu=3" class="nav-item">
@@ -116,13 +121,13 @@
                             </a>
                         </li>
                     @endif -->
-
-                    <li @click.prevent="menu=4" class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="ni ni-chart-bar-32 text-default"></i>{{ __('Informes') }}
-                        </a>
-                    </li>
-
+                    @if(Auth::user()->rol == 'Administrador')
+                        <li @click.prevent="menu=10" class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-chart-line text-default"></i>{{ __(' Informe Taller Mecánico') }}
+                            </a>
+                        </li>
+                    @endif
             </ul>
             <!-- Divider -->
             <hr class="my-3">

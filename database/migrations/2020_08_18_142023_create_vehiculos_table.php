@@ -20,8 +20,8 @@ class CreateVehiculosTable extends Migration
             $table->string('fono_propietario',12)->nullable();
             $table->string('correo_propietario',100)->nullable();
             $table->string('motor',30)->nullable();
-            $table->string('marca',30);
-            $table->string('modelo',30);
+            $table->string('marca',30)->nullable();
+            $table->string('modelo',30)->nullable();
             $table->string('vin',30)->nullable();
             $table->string('chasis',30)->nullable();
             $table->bigInteger('tipo_vehiculo')->unsigned();

@@ -15,11 +15,11 @@ class UsersTableSeeder extends Seeder
     {
         $com = Empresa::all();
         DB::table('users')->insert([
-            'name' => 'Fernando Romero Rodríguez',
-            'email' => 'fernando.romero20@gmail.com',
+            'name' => 'Guillermo Martinez',
+            'email' => 'guillermo.sammi@gmail.com',
             'email_verified_at' => now(),
             'empresa_id' => $com->last()->id,
-            'password' => Hash::make('romero2010'),
+            'password' => Hash::make('123456'),
             'state' => true,
             'rol' => 'Administrador',
             'created_at' => now(),

@@ -32,8 +32,8 @@
                 type="text"
                 v-model="buscar"
                 class="form-control float-right"
-                placeholder="Buscar por Patente ..."
-                style="max-width:300px;"
+                placeholder="Buscar por nombre del cliente ..."
+                style="max-width:50%;"
               />
               
             </div>

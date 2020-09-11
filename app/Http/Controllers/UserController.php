@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Http\Requests\UserRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,9 +15,35 @@ class UserController extends Controller
      * @param  \App\User  $model
      * @return \Illuminate\View\View
      */
-    public function index(User $model)
+    public function index(Request $request)
     {
-        return view('users.index', ['users' => $model->paginate(15)]);
+        $buscar = $request->buscar;
+
+        if ($buscar==''){
+
+            $usuarios = User::select('users.*')
+            ->orderBy('users.name', 'desc')->paginate(10);
+        }
+        else{
+            
+            $usuarios = User::where('users.name', 'like', '%'. $buscar . '%')
+            ->orWhere('users.email', 'like', '%'. $buscar . '%')
+            ->orderBy('users.name', 'desc')->paginate(10);
+            
+        }
+        
+
+        return [
+            'pagination' => [
+                'total'        => $usuarios->total(),
+                'current_page' => $usuarios->currentPage(),
+                'per_page'     => $usuarios->perPage(),
+                'last_page'    => $usuarios->lastPage(),
+                'from'         => $usuarios->firstItem(),
+                'to'           => $usuarios->lastItem(),
+            ],
+            'usuarios' => $usuarios
+        ];
     }
 
     /**
@@ -37,11 +63,21 @@ class UserController extends Controller
      * @param  \App\User  $model
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(UserRequest $request, User $model)
+    public function store(Request $request)
     {
-        $model->create($request->merge(['password' => Hash::make($request->get('password'))])->all());
-
-        return redirect()->route('user.index')->withStatus(__('User successfully created.'));
+        date_default_timezone_set('America/Santiago');
+        $usuario = new User();
+        $usuario->name = $request->name;
+        $usuario->email = $request->email;
+        $usuario->rol = $request->rol;
+        $usuario->empresa_id = 1;
+        if($request->psw1 != ""){
+            $usuario->password = Hash::make($request->psw1);
+        }else{
+            $usuario->password = Hash::make(123456);
+        }
+        
+        $usuario->save();
     }
 
     /**
@@ -62,14 +98,18 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UserRequest $request, User  $user)
+    public function update(Request $request)
     {
-        $user->update(
-            $request->merge(['password' => Hash::make($request->get('password'))])
-                ->except([$request->get('password') ? '' : 'password']
-        ));
-
-        return redirect()->route('user.index')->withStatus(__('User successfully updated.'));
+        // Buscar Usuario
+        $usuario = User::where('id', $request->id)->firstOrFail();
+        $usuario->name = $request->name;
+        $usuario->email = $request->email;
+        $usuario->rol = $request->rol;
+        $usuario->empresa_id = 1;
+        if($request->psw1 != ""){
+            $usuario->password = Hash::make($request->psw1);
+        }      
+        $usuario->save();
     }
 
     /**
@@ -78,12 +118,12 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(User  $user)
+    public function eliminar(Request $request)
     {
-        $user->delete();
-
-        return redirect()->route('user.index')->withStatus(__('User successfully deleted.'));
+        $usuario = User::findOrFail($request->id);
+        $usuario->delete();
     }
+
 
     public function obtenerUsuarioSesion()
     {

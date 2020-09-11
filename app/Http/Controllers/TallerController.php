@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Taller;
 use App\ServicioDetalle;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 
 
@@ -24,11 +26,12 @@ class TallerController extends Controller
 
             $servicios = Taller::join('vehiculos', 'vehiculos.id', '=', 'servicios.patente_vehiculo')
             ->select('servicios.*', 'vehiculos.patente as patente', 'vehiculos.nombre_propietario as propietario', 'vehiculos.marca as marca', 'vehiculos.modelo as modelo' )
-            ->orderBy('vehiculos.id', 'desc')->paginate(10);
+            ->orderBy('servicios.created_at', 'desc')->paginate(10);
         }
         else{
             
             $servicios = Taller::where('vehiculos.patente', 'like', '%'. $buscar . '%')
+            ->orWhere('vehiculos.nombre_propietario', 'like', '%'. $buscar . '%')
             ->join('vehiculos', 'vehiculos.id', '=', 'servicios.patente_vehiculo')
             ->select('servicios.*', 'vehiculos.patente as patente', 'vehiculos.nombre_propietario as propietario', 'vehiculos.marca as marca', 'vehiculos.modelo as modelo' )
             ->orderBy('vehiculos.id', 'desc')->paginate(10);
@@ -110,9 +113,11 @@ class TallerController extends Controller
  
     public function eliminar(Request $request)
     {
-        
-        $servicio = Taller::findOrFail($request->id);
-        $servicio->delete();
+        $rol =  Auth::user()->rol;
+        if ($rol == "Administrador"){
+            $servicio = Taller::findOrFail($request->id);
+            $servicio->delete();
+        }
     }
 
     public function getAllVehiculos(Request $request)
@@ -132,6 +137,84 @@ class TallerController extends Controller
         ->get();
 
         return $detalles;
+    }
+
+
+    public function momdeldia()
+    {
+        
+        $inicio = date("Y-m-01");
+        $fin = date("Y-m-31");
+
+        $mom = DB::table('servicios')
+        ->join('detalles_servicios', 'detalles_servicios.id_servicio', '=', 'servicios.id')
+        ->where('detalles_servicios.tipo','Mano de Obra Mecánica')
+        ->where('servicios.estado','Terminada')
+        ->whereBetween('servicios.created_at', [$inicio." 00:00:00", $fin." 23:59:59"])
+        ->sum('detalles_servicios.valor_neto');
+        echo $mom;
+
+    }
+
+    public function moe()
+    {
+        
+        $inicio = date("Y-m-01");
+        $fin = date("Y-m-31");
+
+        $moe = DB::table('servicios')
+        ->join('detalles_servicios', 'detalles_servicios.id_servicio', '=', 'servicios.id')
+        ->where('detalles_servicios.tipo','Mano de Obra Eléctrica')
+        ->where('servicios.estado','Terminada')
+        ->whereBetween('servicios.created_at', [$inicio." 00:00:00", $fin." 23:59:59"])
+        ->sum('detalles_servicios.valor_neto');
+        echo $moe;
+
+    }
+
+    public function vys()
+    {
+        
+        $inicio = date("Y-m-01");
+        $fin = date("Y-m-31");
+
+        $vys = DB::table('servicios')
+        ->join('detalles_servicios', 'detalles_servicios.id_servicio', '=', 'servicios.id')
+        ->where('detalles_servicios.tipo','Ventas o Servicios')
+        ->where('servicios.estado','Terminada')
+        ->whereBetween('servicios.created_at', [$inicio." 00:00:00", $fin." 23:59:59"])
+        ->sum('detalles_servicios.valor_neto');
+        echo $vys;
+
+    }
+
+    public function ingresosaldia()
+    {
+
+        $inicio = date("Y-m-01");
+        $fin = date("Y-m-31");
+
+        $servicios = DB::table('servicios')
+        ->count();
+
+        echo $servicios;
+
+    }
+
+    public function serviciosporfecha(Request $request)
+    {
+
+       
+        $total = DB::table('servicios')
+        ->join('detalles_servicios', 'detalles_servicios.id_servicio', '=', 'servicios.id')
+        ->where('servicios.estado', $request->estado)
+        ->whereBetween('servicios.created_at', [$request->inicio." 00:00:00", $request->fin." 23:59:59"])
+        ->select(DB::raw('DATE(servicios.created_at) as fecha'), DB::raw('(SELECT count(servicios.id) FROM servicios WHERE DATE(servicios.created_at) = fecha) as numero_servicios'),  DB::raw('(SELECT sum(detalles_servicios.valor_neto) FROM detalles_servicios INNER JOIN servicios ON servicios.id = detalles_servicios.id_servicio WHERE detalles_servicios.tipo = "Mano de Obra Mecánica" AND  DATE(servicios.created_at) = fecha) as mom'), DB::raw('(SELECT sum(detalles_servicios.valor_neto) FROM detalles_servicios INNER JOIN servicios ON servicios.id = detalles_servicios.id_servicio WHERE detalles_servicios.tipo = "Mano de Obra Eléctrica" AND  DATE(servicios.created_at) = fecha) as moe'), DB::raw('(SELECT sum(detalles_servicios.valor_neto) FROM detalles_servicios INNER JOIN servicios ON servicios.id = detalles_servicios.id_servicio WHERE detalles_servicios.tipo = "Ventas o Servicios" AND  DATE(servicios.created_at) = fecha) as vys'))
+        ->groupBy('fecha')
+        ->get();
+
+        echo $total;
+
     }
  
  

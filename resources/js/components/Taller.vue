@@ -22,7 +22,7 @@
           </div>
         </div>
               <button
-                @click="abrirModal('taller','registrar')"
+                @click.prevent="abrirModal('taller','registrar')"
                 type="button"
                 class="btn btn-success float-left"
               >Nuevo Ingreso</button>
@@ -32,8 +32,8 @@
                 type="text"
                 v-model="buscar"
                 class="form-control float-right"
-                placeholder="Buscar por Patente ..."
-                style="max-width:300px;"
+                placeholder="Buscar por Patente o Propietario"
+                style="max-width:50%;"
               />
               
             </div>
@@ -46,6 +46,7 @@
                     <th scope="col">Patente</th>
                     <th scope="col">Comentario</th>
                     <th scope="col">Propietario</th>
+                    <th scope="col">Estado</th>
                     <th scope="col">Fecha</th>
                     <th scope="col"></th>
                   </tr>
@@ -57,6 +58,7 @@
                     <td class="text-left text-uppercase"><small v-text="taller.patente"></small></td>
                     <td class="text-left text-uppercase"><small v-text="taller.comentario"></small></td>
                     <td class="text-left text-uppercase"><small v-text="taller.propietario"></small></td>
+                    <td class="text-left text-uppercase"><small v-text="taller.estado"></small></td>
                     <td class="text-left text-uppercase"><small v-text="taller.created_at"></small></td>
                     <td class="text-right">
                       <div class="dropdown">
@@ -150,7 +152,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title text-primary" v-text="tituloModal"></h4>
-            <button type="button" class="close" @click="cerrarModal()" aria-label="Close">
+            <button type="button" class="close" @click.prevent="cerrarModal()" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
@@ -159,7 +161,7 @@
 
             <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Vehículo : </label>
-                <div class="col-md-9">
+                <div class="col-md-6">
                   <select v-model="vehiculo" class="form-control" v-on:change.prevent="">
                               <option value="0">Seleccione una patente</option>
                               <option v-for="option in vehiculos" v-bind:value="option.id">
@@ -167,6 +169,11 @@
                               </option>
                     </select>
                 </div>
+
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-default" @click.prevent="abrirModalNuevoVehiculo()">Nuevo Vehiculo</button>
+                </div>
+
               </div>
 
               <div class="form-group row">
@@ -330,12 +337,14 @@ import Swal from "sweetalert2";
 import VueCurrencyFilter from "vue-currency-filter";
 import jsPDF from 'jspdf';
 
+
 Vue.use(VueCurrencyFilter);
+
+
 export default {
   props: ["ruta"],
   created(){
     axios.get('/todoslosvehiculos').then(response => { this.vehiculos = response.data; }).catch(errors => { console.log(errors); })
-  
   },
   data() {
     return {
@@ -420,6 +429,25 @@ export default {
           console.log(error);
         });
     },
+
+    abrirModalNuevoVehiculo(){
+      const { value: formValues } =  Swal.fire({
+        title: 'Nuevo Vehículo',
+        html:
+          '<input id="swal-input1" class="swal2-input" placeholder="Ingresa Patente Válida">' +
+          '<input id="swal-input2" class="swal2-input" placeholder="Nombre del Propietario">' +
+          '<input id="swal-input3" class="swal2-input" placeholder="Teléfono de Contacto">',
+        focusConfirm: false,
+        preConfirm: () => {
+          this.registrarVehiculo(document.getElementById('swal-input1').value,document.getElementById('swal-input2').value, document.getElementById('swal-input3').value);        
+        }
+        
+      })
+
+      if (formValues) {
+        Swal.fire(JSON.stringify(formValues))
+      }
+    },
   agregarDetalle(){
     let me = this;
     if (me.detalle != "")
@@ -439,6 +467,24 @@ export default {
       me.detalle = "";
     }
   },
+      registrarVehiculo(patente,nombre,fono) {
+      let me = this;
+      axios
+        .post("/vehiculo/registrar", {
+          patente: patente,
+          nombre_propietario: nombre,
+          fono_propietario: fono,
+          tipo: 1
+        })
+        .then(function(response) {
+        
+            axios.get('/todoslosvehiculos').then(response => { me.vehiculos = response.data; }).catch(errors => { console.log(errors); });
+
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
   eliminarDetalle(item){
     let me = this;
     var i = me.detalles.indexOf(item);
@@ -568,7 +614,7 @@ export default {
       var doc = new jsPDF('p','pt','letter');
       // Agregar Logo Principal
       var logo = new Image();
-      logo.src = 'argon/img/brand/sammi.jpg';
+      logo.src = 'argon/img/brand/sammy.jpg';
       doc.addImage(logo, 'JPG', 40, 40);
       doc.setFontSize(12);
       doc.text("SAMMI LTDA", 160, 60);
@@ -821,7 +867,7 @@ export default {
               this.detalles = data["detalles"];
               // Buscar Detalles del Servicio
               axios.get('/detallesporservicio/'+ this.id).then(response => { this.detalles = response.data; }).catch(errors => { console.log(errors); })
-              
+             
               break;
             }
           }

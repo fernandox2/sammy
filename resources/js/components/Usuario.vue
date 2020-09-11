@@ -5,7 +5,7 @@
       <div class="header-body">
         <a
           class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
-        >Mantenedor de Tipos de Vehículos</a>
+        >Usuarios del Sistema</a>
       </div>
 
       <!-- Table -->
@@ -13,18 +13,26 @@
         <div class="col">
           <div class="card shadow">
             <div class="card-header border-0">
+                        <div class="row">
+          <div class="col">
+              <div class="alert alert-default alert-dismissible fade show" role="alert">
+                <span class="alert-icon"><i class="fas fa-users"></i></span>
+                <span class="alert-text text-uppercase"><strong>Usuarios</strong></span>
+              </div>
+          </div>
+        </div>
               <button
-                @click="abrirModal('tipo','registrar')"
+                @click="abrirModal('usuario','registrar')"
                 type="button"
-                class="btn btn-default float-left"
-              >Nuevo Tipo</button>
+                class="btn btn-success float-left"
+              >Nuevo Usuario</button>
 
               <input
-                v-on:change="listarTipo(1,buscar)"
+                v-on:change="listarUsuario(1,buscar)"
                 type="text"
                 v-model="buscar"
                 class="form-control float-right"
-                placeholder="Buscar ..."
+                placeholder="Buscar por nombre o correo ..."
                 style="max-width:50%;"
               />
               
@@ -35,18 +43,21 @@
                 <thead class="thead-light">
                   <tr>
                     <th scope="col">Nombre</th>
+                    <th scope="col">Correo Electrónico</th>
+                    <th scope="col">Rol</th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="tipo in arrayTipo" :key="tipo.id">
-                    
-                    <td class="text-left text-uppercase"><small v-text="tipo.nombre"></small></td>
+                  <tr v-for="usuario in arrayUsuario" :key="usuario.id">
 
+                    <td class="text-left text-uppercase"><small v-text="usuario.name"></small></td>
+                    <td class="text-left text-uppercase"><small v-text="usuario.email"></small></td>
+                    <td class="text-left text-uppercase"><small v-text="usuario.rol"></small></td>
                     <td class="text-right">
                       <div class="dropdown">
                         <a
-                          class="btn btn-sm btn-icon-only text-light"
+                          class="btn btn-sm btn-icon-only"
                           href="#"
                           role="button"
                           data-toggle="dropdown"
@@ -57,12 +68,14 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                           <a
+                            style="cursor:pointer;"
                             class="dropdown-item"
-                            @click.prevent="abrirModal('tipo','actualizar',tipo)"
+                            @click.prevent="abrirModal('usuario','actualizar',usuario)"
                           >Modificar</a>
                           <a
+                          style="cursor:pointer;"
                             class="dropdown-item"
-                            @click.prevent="eliminarTipo(tipo.id)"
+                            @click.prevent="eliminarUsuario(usuario.id)"
                           >Eliminar</a>
                         </div>
                       </div>
@@ -127,31 +140,58 @@
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title" v-text="tituloModal"></h4>
+            <h4 class="modal-title text-primary" v-text="tituloModal"></h4>
             <button type="button" class="close" @click="cerrarModal()" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
           <div class="modal-body">
             <form action method="post" enctype="multipart/form-data" class="form-horizontal">
+
+                <div class="form-group row">
+                    <label class="col-md-3 form-control-label" for="text-input">Nombre del Usuario :</label>
+                    <div class="col-md-9">
+                        <input type="text" v-model="name" class="form-control" placeholder="Ej : Javier Neira Soto"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 form-control-label" for="text-input">Correo Electronico :</label>
+                    <div class="col-md-9">
+                        <input type="email" v-model="email" class="form-control" placeholder="Ej : correo_del_usuario@gmail.com"/>
+                    </div>
+                </div>
+
               <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Tipo</label>
+                <label class="col-md-3 form-control-label" for="text-input">Rol :</label>
                 <div class="col-md-9">
-                  <input
-                    type="text"
-                    v-model="nombre"
-                    class="form-control"
-                    placeholder="Ej : Autos, Camionetas y 4x4"
-                  />
+                  <select v-model="rol" class="form-control" v-on:change.prevent="">
+                              <option value="Administrador">Administrador</option>
+                              <option value="Trabajador">Trabajador</option>
+                    </select>
                 </div>
               </div>
 
-              <div v-show="errorTipo" class="form-group row div-error">
+                <div class="form-group row">
+                    <label class="col-md-3 form-control-label" for="text-input">Contraseña :</label>
+                    <div class="col-md-9">
+                        <input type="password" maxlength="10" v-model="psw1" class="form-control" placeholder="Ingrese contraseña"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 form-control-label" for="text-input">Confirmar Contraseña :</label>
+                    <div class="col-md-9">
+                        <input type="password" maxlength="10" v-model="psw2" class="form-control" placeholder="Ingrese nuevamente contraseña"/>
+                    </div>
+                </div>
+
+
+              <div v-show="errorUsuario" class="form-group row div-error">
                 <div class="text-center text-error">
-                  <div v-for="error in errorMostrarMsjTipo" :key="error" v-text="error"></div>
+                  <div v-for="error in errorMostrarMsjUsuario" :key="error" v-text="error"></div>
                 </div>
               </div>
-
             </form>
           </div>
 
@@ -159,15 +199,15 @@
             <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
             <button
               type="button"
-              v-if="tipoAccion==1"
+              v-if="usuarioAccion==1"
               class="btn btn-primary"
-              @click="registrarTipo()"
+              @click="registrarUsuario()"
             >Guardar</button>
             <button
               type="button"
-              v-if="tipoAccion==2"
+              v-if="usuarioAccion==2"
               class="btn btn-primary"
-              @click="actualizarTipo()"
+              @click="actualizarUsuario()"
             >Actualizar</button>
           </div>
         </div>
@@ -180,22 +220,31 @@
 </template>
 
 <script>
-import Swal from "sweetalert2";
-import VueCurrencyFilter from "vue-currency-filter";
 
-Vue.use(VueCurrencyFilter);
+import Swal from "sweetalert2";
+
+
 export default {
   props: ["ruta"],
+  created(){
+    axios.get('/todoslosvehiculos').then(response => { this.vehiculos = response.data; }).catch(errors => { console.log(errors); })
+  
+  },
   data() {
     return {
       id: 0,
-      nombre: "",
-      arrayTipo: [],
+      name: "",
+      email:"",
+      rol:"Trabajador",
+      psw1:"",
+      psw2:"",
+      usuarios:[],
+      arrayUsuario:[],
       modal: 0,
       tituloModal: "",
-      tipoAccion: 0,
-      errorTipo: 0,
-      errorMostrarMsjTipo: [],
+      usuarioAccion: 0,
+      errorUsuario: 0,
+      errorMostrarMsjUsuario: [],
       pagination: {
         total: 0,
         current_page: 0,
@@ -205,7 +254,7 @@ export default {
         to: 0
       },
       offset: 3,
-      criterio: "nombre",
+      criterio: "name",
       buscar: ""
     };
   },
@@ -239,10 +288,10 @@ export default {
   },
   methods: {
 
-    listarTipo(page, buscar, criterio) {
+    listarUsuario(page, buscar, criterio) {
       let me = this;
       var url =
-        "/tipovehiculo?page=" +
+        "/usuario?page=" +
         page +
         "&buscar=" +
         buscar +
@@ -252,7 +301,7 @@ export default {
         .get(url)
         .then(function(response) {
           var respuesta = response.data;
-          me.arrayTipo = respuesta.tipos.data;
+          me.arrayUsuario = respuesta.usuarios.data;
           me.pagination = respuesta.pagination;
         })
         .catch(function(error) {
@@ -264,22 +313,27 @@ export default {
       //Actualiza la página actual
       me.pagination.current_page = page;
       //Envia la petición para visualizar la data de esa página
-      me.listarTipo(page, buscar, criterio);
+      me.listarUsuario(page, buscar, criterio);
     },
-    registrarTipo() {
-      if (this.validarTipo()) {
+
+    registrarUsuario() {
+      if (this.validarUsuario()) {
         return;
       }
 
       let me = this;
 
       axios
-        .post("/tipovehiculo/registrar", {
-          nombre: this.nombre
+        .post("/usuario/registrar", {
+          name: me.name,
+          email:me.email,
+          rol: me.rol,
+          psw1: me.psw1,
+          psw2: me.psw2
         })
         .then(function(response) {
           me.cerrarModal();
-          me.listarTipo(1, "", "nombre");
+          me.listarUsuario(1, "", "name");
           Swal.fire({
             icon: "success",
             title: "Excelente ...",
@@ -290,21 +344,25 @@ export default {
           console.log(error);
         });
     },
-    actualizarTipo() {
-      if (this.validarTipo()) {
+    actualizarUsuario() {
+      if (this.validarUsuario()) {
         return;
       }
 
       let me = this;
 
       axios
-        .put("/tipovehiculo/actualizar", {
-          nombre: this.nombre,
-          id: this.id
+        .put("/usuario/actualizar", {
+          name: me.name,
+          email:me.email,
+          rol: me.rol,
+          psw1: me.psw1,
+          psw2: me.psw2,
+          id: me.id
         })
         .then(function(response) {
           me.cerrarModal();
-          me.listarTipo(1, "", "nombre");
+          me.listarUsuario(1, "", "id");
           Swal.fire({
             icon: "success",
             title: "Excelente ...",
@@ -315,7 +373,7 @@ export default {
           console.log(error);
         });
     },
-    eliminarTipo(id) {
+    eliminarUsuario(id) {
       let me = this;
 
       Swal.fire({
@@ -328,15 +386,14 @@ export default {
         confirmButtonText: "Sí, Bórralo"
       }).then(result => {
         if (result.value) {
-          axios
-            .put("/tipovehiculo/eliminar", {
+          axios.put("/usuario/eliminar", {
               id: id
             })
             .then(function(response) {
-              me.listarTipo(1, "", "nombre");
+              me.listarUsuario(1, "", "id");
               Swal.fire(
                 "Borrado!",
-                "El registro fue liminado del sistema.",
+                "El registro fue eliminado del sistema.",
                 "success"
               );
             })
@@ -346,42 +403,66 @@ export default {
         }
       });
     },
-    validarTipo() {
-      this.errorTipo = 0;
-      this.errorMostrarMsjTipo = [];
 
-      if (!this.nombre)
-        this.errorMostrarMsjTipo.push(
-          "El tipo no puede estar vacío."
+    validarUsuario() {
+      this.errorUsuario = 0;
+      this.errorMostrarMsjUsuario = [];
+
+      if (this.name=="" )
+        this.errorMostrarMsjUsuario.push(
+          "Debe ingresar un nombre al usuario."
         );
 
-      if (this.errorMostrarMsjTipo.length) this.errorTipo = 1;
+      if (this.email == "")
+        this.errorMostrarMsjUsuario.push(
+          "Debe agregar un email válido."
+        );
 
-      return this.errorTipo;
+        if (this.psw1 != this.psw2)
+        this.errorMostrarMsjUsuario.push(
+          "Las contraseñas no coinciden"
+        );
+
+
+      if (this.errorMostrarMsjUsuario.length) this.errorUsuario = 1;
+
+      return this.errorUsuario;
     },
     cerrarModal() {
       this.modal = 0;
       this.tituloModal = "";
-      this.nombre = "";
+      this.name = "";
+      this.email = "";
+      this.psw1 = "";
+      this.psw2 = "";
+      this.rol = "Trabajador";
     },
+
     abrirModal(modelo, accion, data = []) {
       switch (modelo) {
-        case "tipo": {
+        case "usuario": {
           switch (accion) {
             case "registrar": {
               this.modal = 1;
-              this.tituloModal = "Registrar Tipo";
-              this.nombre = "";
-              this.tipoAccion = 1;
+              this.tituloModal = "Nuevo Usuario";
+              this.name = "";
+              this.email = "";
+              this.psw1 = "";
+              this.psw2 = "";
+              this.rol = "Trabajador";
+              this.usuarioAccion = 1;
               break;
             }
-
             case "actualizar": {
               this.modal = 1;
-              this.tituloModal = "Actualizar tipo";
-              this.tipoAccion = 2;
+              this.tituloModal = "Actualizar Usuario N° " + data["id"];
+              this.usuarioAccion = 2;
               this.id = data["id"];
-              this.nombre = data["nombre"];
+              this.name = data["name"];
+              this.email = data["email"];
+              this.psw1 = data["password"];
+              this.psw2 = data["password"];
+              this.rol = data["rol"];
               break;
             }
           }
@@ -390,7 +471,8 @@ export default {
     }
   },
   mounted() {
-    this.listarTipo(1, this.buscar, this.criterio);
+    this.listarUsuario(1, this.buscar, this.criterio);
+
   }
 };
 </script>

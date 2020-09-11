@@ -42,6 +42,14 @@
     <cotizacion-component></cotizacion-component>
 </template>
 
+<template v-if="menu==10">
+    <informe-taller-component></informe-taller-component>
+</template>
+
+<template v-if="menu==11">
+    <usuario-component></usuario-component>
+</template>
+
 @endsection
 
 @push('js')

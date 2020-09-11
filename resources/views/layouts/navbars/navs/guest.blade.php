@@ -1,7 +1,7 @@
 <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
     <div class="container px-4">
         <a class="navbar-brand" href="{{ route('home') }}">
-            <img src="{{ asset('argon') }}/img/brand/white.png" />
+            <img src="{{ asset('argon') }}/img/brand/sammi.jpg" />
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-6 collapse-brand">
                         <a href="{{ route('home') }}">
-                            <img src="{{ asset('argon') }}/img/brand/blue.png">
+                            <img src="{{ asset('argon') }}/img/brand/sammi.jpg">
                         </a>
                     </div>
                     <div class="col-6 collapse-close">
@@ -29,7 +29,7 @@
                 <li class="nav-item">
                     <a class="nav-link nav-link-icon" href="{{ route('login') }}">
                         <i class="ni ni-key-25"></i>
-                        <span class="nav-link-inner--text">{{ __('Login') }}</span>
+                        <span class="nav-link-inner--text">{{ __('Entrar') }}</span>
                     </a>
                 </li>
 
